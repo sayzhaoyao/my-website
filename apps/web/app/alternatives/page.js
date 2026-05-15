@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { sitePath } from "../../lib/site";
 import { getAlternatives } from "../../lib/strapi";
 
 export const metadata = {
@@ -22,7 +23,7 @@ export default async function AlternativesIndexPage() {
       position: index + 1,
       headline: alternative.title,
       description: alternative.seoDescription || alternative.intro,
-      url: `/alternatives/${alternative.slug}`,
+      url: sitePath(`/alternatives/${alternative.slug}`),
     })),
   };
 

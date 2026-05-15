@@ -144,6 +144,7 @@ Implemented:
 - sitemap.xml,
 - RSS feed,
 - semantic page structure,
-- server-rendered content.
+- server-rendered content,
+- absolute internal URLs in structured data.
 
 The RSS feed exposes public discovery pages, category pages, buying guides, comparisons, alternatives, and tool review pages for feed readers and lightweight content syndication.

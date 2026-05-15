@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { sitePath } from "../../lib/site";
 import { getComparisons } from "../../lib/strapi";
 
 export const metadata = {
@@ -22,7 +23,7 @@ export default async function CompareIndexPage() {
       position: index + 1,
       headline: comparison.title,
       description: comparison.summary,
-      url: `/compare/${comparison.slug}`,
+      url: sitePath(`/compare/${comparison.slug}`),
     })),
   };
 

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { sitePath } from "../../lib/site";
 import { getCategories, getTools } from "../../lib/strapi";
 
 export const metadata = {
@@ -28,7 +29,7 @@ export default async function CategoriesIndexPage() {
       "@type": "ListItem",
       position: index + 1,
       name: category.name,
-      url: `/categories/${category.slug}`,
+      url: sitePath(`/categories/${category.slug}`),
     })),
   };
 

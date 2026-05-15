@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
+import { sitePath } from "../../../lib/site";
 import { ToolCard } from "../../../components/ToolCard";
 import { formatPricing, getAverageScore, getCategories, getCategoryBySlug, getToolsByCategorySlug } from "../../../lib/strapi";
 
@@ -86,7 +87,7 @@ export default async function CategoryPage({ params }) {
     mainEntity: tools.slice(0, 10).map((tool) => ({
       "@type": "SoftwareApplication",
       name: tool.name,
-      url: `/tools/${tool.slug}`,
+      url: sitePath(`/tools/${tool.slug}`),
       description: tool.shortDescription,
     })),
   };

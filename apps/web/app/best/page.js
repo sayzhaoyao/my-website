@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { sitePath } from "../../lib/site";
 import { getBestLists } from "../../lib/strapi";
 
 export const metadata = {
@@ -20,7 +21,7 @@ export default async function BestIndexPage() {
     mainEntity: lists.map((list) => ({
       "@type": "Article",
       headline: list.title,
-      url: `/best/${list.slug}`,
+      url: sitePath(`/best/${list.slug}`),
       description: list.seoDescription || list.intro,
     })),
   };

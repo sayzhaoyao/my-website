@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
+import { sitePath } from "../../../lib/site";
 import { formatPricing, getAlternativeBySlug, getAlternatives, listField } from "../../../lib/strapi";
 import { ScoreBadge } from "../../../components/ScoreBadge";
 
@@ -65,7 +66,7 @@ export default async function AlternativeDetailPage({ params }) {
           "@type": "ListItem",
           position: index + 1,
           name: tool.name,
-          url: `/tools/${tool.slug}`,
+          url: sitePath(`/tools/${tool.slug}`),
         })),
       },
       ...faqItems.map((item) => ({

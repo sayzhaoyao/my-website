@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
+import { sitePath } from "../../../lib/site";
 import { formatPricing, getAverageScore, getBestListBySlug, getBestLists, listField } from "../../../lib/strapi";
 import { ScoreBadge } from "../../../components/ScoreBadge";
 
@@ -61,7 +62,7 @@ export default async function BestDetailPage({ params }) {
       item: {
         "@type": "SoftwareApplication",
         name: tool.name,
-        url: `/tools/${tool.slug}`,
+        url: sitePath(`/tools/${tool.slug}`),
         description: tool.shortDescription,
       },
     })),
