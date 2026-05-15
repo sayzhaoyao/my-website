@@ -32,9 +32,9 @@ const categories = [
   {
     name: "Email Marketing Tools",
     slug: "email-marketing-tools",
-    intro: "Tools for newsletters, abandoned cart flows, customer retention, and lifecycle marketing.",
+    intro: "Tools for abandoned cart flows, post-purchase campaigns, customer segmentation, SMS, and lifecycle marketing for online stores.",
     seoTitle: "Best Email Marketing Tools for E-commerce",
-    seoDescription: "Compare e-commerce email marketing tools for retention, automation, and revenue growth.",
+    seoDescription: "Compare e-commerce email and SMS marketing tools for retention, automation, segmentation, and repeat revenue.",
   },
   {
     name: "Customer Support Tools",
@@ -82,17 +82,26 @@ const tools = [
     slug: "klaviyo",
     categorySlugs: ["email-marketing-tools", "analytics-attribution-tools"],
     websiteUrl: "https://www.klaviyo.com/",
-    shortDescription: "Email and SMS marketing platform built for e-commerce brands and lifecycle marketing.",
+    shortDescription: "Email and SMS marketing platform for e-commerce brands that need segmentation, automations, and revenue reporting.",
+    longDescription: "Klaviyo is a strong fit for stores that treat retention as a real growth channel, not just a monthly newsletter. Its biggest advantage is the depth of customer data, segmentation, and lifecycle automation that e-commerce teams can build around purchase behavior.\n\nFor a small store, Klaviyo can feel heavier than necessary. For a growing DTC brand with repeat-purchase potential, it gives marketers more room to build abandoned cart, welcome, winback, replenishment, and VIP flows. Before choosing it, model pricing with your real contact count and message volume because cost can rise as the list grows.",
     pricingModel: "freemium",
     freePlanAvailable: true,
-    keyFeatures: ["Email automation", "SMS marketing", "Customer segmentation", "Revenue analytics"],
-    pros: ["Strong e-commerce integrations", "Advanced segmentation", "Revenue-focused analytics"],
-    cons: ["Can become expensive as lists grow", "Requires setup effort for best results"],
-    bestFor: ["Shopify brands", "DTC teams", "Retention marketers"],
+    keyFeatures: ["Email automation", "SMS and mobile messaging", "Customer segmentation", "Revenue analytics", "E-commerce integrations", "Campaign and flow reporting"],
+    pros: ["Strong e-commerce integrations", "Advanced segmentation", "Revenue-focused analytics", "Good fit for lifecycle marketing teams"],
+    cons: ["Can become expensive as lists grow", "Requires setup effort for best results", "May be more complex than a simple newsletter tool"],
+    bestFor: ["Scaling Shopify brands", "DTC retention teams", "Stores with repeat purchase behavior"],
     scores: [3, 3, 5, 5, 2, 4],
     decisionSummary: "Choose Klaviyo when retention is a major revenue channel and your team can maintain segmentation and lifecycle flows.",
-    recommendedFor: ["Scaling DTC brands", "Retention marketers", "Stores with repeat purchase potential"],
-    notRecommendedFor: ["Very small lists", "Teams that only need a simple newsletter"],
+    recommendedFor: ["Scaling DTC brands", "Retention marketers", "Stores with repeat purchase potential", "Teams that need deep segmentation"],
+    notRecommendedFor: ["Very small lists", "Teams that only need a simple newsletter", "Stores without time to maintain flows"],
+    affiliateDisclosure: "This review links to the official Klaviyo site. Confirm current pricing, plan limits, and channel availability before choosing.",
+    sourceUrls: [
+      "https://www.klaviyo.com/",
+      "https://www.klaviyo.com/pricing",
+      "https://help.klaviyo.com/hc/en-us/articles/360050759151",
+    ],
+    seoTitle: "Klaviyo Review for E-commerce: Features, Pricing Fit, and Alternatives",
+    seoDescription: "Review Klaviyo for e-commerce email and SMS marketing, including best use cases, segmentation strengths, pricing tradeoffs, pros, cons, and alternatives.",
   },
   {
     name: "Gorgias",
@@ -235,17 +244,26 @@ const tools = [
     slug: "omnisend",
     categorySlugs: ["email-marketing-tools"],
     websiteUrl: "https://www.omnisend.com/",
-    shortDescription: "Email and SMS marketing automation platform for e-commerce stores.",
+    shortDescription: "Email and SMS marketing automation platform for e-commerce stores that want approachable campaigns, forms, and workflows.",
+    longDescription: "Omnisend is a practical option for stores that want e-commerce email automation without starting with a complicated power-user setup. It is especially useful when a team needs email campaigns, popups, basic segmentation, and SMS support in one marketing workspace.\n\nCompared with Klaviyo, Omnisend usually feels easier to approach for small teams. The tradeoff is that advanced lifecycle teams may eventually want deeper segmentation or analytics. Before choosing it, compare plans against your actual subscriber count, monthly email volume, and SMS needs.",
     pricingModel: "freemium",
     freePlanAvailable: true,
-    keyFeatures: ["Email automation", "SMS campaigns", "Popups", "Segmentation"],
-    pros: ["E-commerce focused", "Good automation templates", "Accessible starting plan"],
-    cons: ["Advanced segmentation may need paid tiers", "Template quality depends on setup"],
-    bestFor: ["Small online stores", "Retention marketing", "Email automation"],
+    keyFeatures: ["Email campaigns", "SMS campaigns", "Automation templates", "Popups and signup forms", "Segmentation", "E-commerce integrations"],
+    pros: ["E-commerce focused", "Good automation templates", "Accessible for smaller teams", "Email and SMS can live in one workflow"],
+    cons: ["Advanced segmentation may need paid tiers", "Template quality depends on setup", "Power users may prefer deeper analytics"],
+    bestFor: ["Small online stores", "Early retention programs", "Teams launching email and SMS together"],
     scores: [4, 4, 4, 4, 2, 3],
     decisionSummary: "Choose Omnisend when you want approachable e-commerce email automation without starting with a power-user setup.",
-    recommendedFor: ["Small stores", "Early retention programs", "Teams wanting email and SMS basics"],
-    notRecommendedFor: ["Advanced lifecycle teams needing deep segmentation"],
+    recommendedFor: ["Small stores", "Early retention programs", "Teams wanting email and SMS basics", "Merchants who value templates and fast setup"],
+    notRecommendedFor: ["Advanced lifecycle teams needing deep segmentation", "Teams that already have a mature retention operation"],
+    affiliateDisclosure: "This review links to the official Omnisend site. Confirm current pricing, plan limits, and SMS terms before choosing.",
+    sourceUrls: [
+      "https://www.omnisend.com/",
+      "https://www.omnisend.com/pricing/",
+      "https://support.omnisend.com/en/articles/3533018-omnisend-pricing-plans-2026",
+    ],
+    seoTitle: "Omnisend Review for E-commerce: Email, SMS, Pricing Fit, and Alternatives",
+    seoDescription: "Review Omnisend for e-commerce email and SMS marketing, including use cases, automation templates, pricing tradeoffs, pros, cons, and alternatives.",
   },
   {
     name: "n8n",
@@ -337,17 +355,26 @@ const tools = [
     slug: "postscript",
     categorySlugs: ["email-marketing-tools"],
     websiteUrl: "https://postscript.io/",
-    shortDescription: "SMS marketing platform built for Shopify brands and customer retention.",
+    shortDescription: "SMS marketing platform built for Shopify brands that want subscriber growth, automations, and two-way customer messaging.",
+    longDescription: "Postscript is best viewed as an SMS-first retention platform for Shopify brands rather than a general email marketing suite. It is a stronger candidate when text messaging is expected to become a meaningful owned channel and the team can manage consent, campaign quality, and compliance.\n\nThe main reason to consider Postscript alongside Klaviyo or Omnisend is focus. If the brand wants deeper Shopify SMS workflows, subscriber growth tools, two-way conversations, and SMS-specific analytics, Postscript deserves a closer look. If the team only needs simple newsletters or basic email automation, it is probably too specialized.",
     pricingModel: "paid",
     freePlanAvailable: false,
-    keyFeatures: ["SMS campaigns", "Automations", "Shopify integration", "Subscriber growth tools"],
-    pros: ["Shopify-focused", "Strong SMS marketing workflows", "Good for retention campaigns"],
-    cons: ["SMS compliance matters", "Best for brands with enough traffic"],
-    bestFor: ["Shopify brands", "Retention marketers", "SMS lifecycle campaigns"],
+    keyFeatures: ["SMS campaigns", "SMS automations", "Shopify integration", "Subscriber growth tools", "Two-way messaging", "SMS analytics"],
+    pros: ["Shopify-focused", "Strong SMS marketing workflows", "Good for retention campaigns", "Built around SMS as a primary channel"],
+    cons: ["SMS compliance matters", "Best for brands with enough traffic", "Not a complete replacement for an email platform"],
+    bestFor: ["Shopify brands", "Retention marketers", "SMS lifecycle campaigns", "Stores with repeat buyers"],
     scores: [3, 3, 4, 4, 1, 4],
     decisionSummary: "Choose Postscript when SMS is a serious retention channel for your Shopify brand.",
-    recommendedFor: ["Shopify brands", "SMS marketers", "Stores with repeat buyers"],
-    notRecommendedFor: ["Stores without SMS consent strategy", "Teams only needing email"],
+    recommendedFor: ["Shopify brands", "SMS marketers", "Stores with repeat buyers", "Teams that want SMS-specific workflows"],
+    notRecommendedFor: ["Stores without SMS consent strategy", "Teams only needing email", "Very early stores without enough traffic"],
+    affiliateDisclosure: "This review links to the official Postscript site. Confirm current plan structure, usage billing, and compliance requirements before choosing.",
+    sourceUrls: [
+      "https://postscript.io/",
+      "https://postscript.io/features",
+      "https://help.postscript.io/hc/en-us/articles/4456807199259",
+    ],
+    seoTitle: "Postscript Review for Shopify SMS Marketing: Features and Alternatives",
+    seoDescription: "Review Postscript for Shopify SMS marketing, including subscriber growth, automations, pricing fit, pros, cons, and alternatives.",
   },
   {
     name: "Replo",
@@ -430,11 +457,18 @@ const bestLists = [
     slug: "best-email-marketing-tools-for-ecommerce",
     categorySlug: "email-marketing-tools",
     toolSlugs: ["klaviyo", "omnisend", "postscript"],
-    intro: "A decision-focused list for stores building abandoned cart flows, lifecycle campaigns, SMS programs, and customer retention systems.",
-    selectionCriteria: ["Segmentation", "Automation templates", "E-commerce integrations", "Revenue reporting", "SMS support"],
-    verdict: "Choose based on store size, channel mix, and how much lifecycle automation you can maintain.",
-    seoTitle: "Best Email Marketing Tools for E-commerce",
-    seoDescription: "Compare email and SMS marketing tools for e-commerce retention, automation, segmentation, and revenue growth.",
+    intro: "A decision-focused shortlist for stores building abandoned cart flows, welcome series, post-purchase campaigns, winback emails, SMS programs, and customer retention systems.",
+    selectionCriteria: [
+      "E-commerce segmentation and purchase behavior data",
+      "Automation templates for abandoned cart, welcome, winback, and post-purchase flows",
+      "Shopify and commerce platform integrations",
+      "Revenue reporting and campaign attribution",
+      "SMS support, consent handling, and channel fit",
+      "Ease of maintenance for a small marketing team",
+    ],
+    verdict: "Choose Klaviyo when retention is a major revenue channel and the team can manage deeper segmentation. Choose Omnisend when you want a faster, simpler email and SMS setup. Choose Postscript when Shopify SMS is the main channel to evaluate.",
+    seoTitle: "Best Email Marketing Tools for E-commerce Stores",
+    seoDescription: "Compare Klaviyo, Omnisend, and Postscript for e-commerce email marketing, SMS, automation, segmentation, retention, and revenue growth.",
   },
 ];
 
@@ -444,11 +478,17 @@ const comparisons = [
     slug: "klaviyo-vs-omnisend",
     toolASlug: "klaviyo",
     toolBSlug: "omnisend",
-    summary: "Klaviyo is often stronger for advanced segmentation and larger lifecycle programs, while Omnisend can be easier for smaller stores getting started with email and SMS automation.",
-    recommendation: "Choose Klaviyo when segmentation and analytics are central to your retention strategy. Choose Omnisend when you want a simpler e-commerce email workflow with accessible automation templates.",
-    featureNotes: ["Both support e-commerce email automation", "Both can support SMS workflows", "Klaviyo is commonly used by scaling DTC teams", "Omnisend is approachable for smaller stores"],
-    pricingNotes: "Both platforms can become more expensive as contacts and message volume grow, so compare pricing with your actual list size.",
-    verdict: "Klaviyo is the stronger power-user option; Omnisend is the more approachable starting point for many small stores.",
+    summary: "Klaviyo is the stronger choice for brands that need advanced segmentation, customer data, and lifecycle reporting. Omnisend is usually easier for smaller stores that want email, SMS, popups, and automation templates without a heavy setup.",
+    recommendation: "Choose Klaviyo if repeat purchase, segmentation, and revenue analytics are central to your retention strategy. Choose Omnisend if you need a simpler e-commerce marketing workspace that a small team can launch and maintain quickly.",
+    featureNotes: [
+      "Both support e-commerce email automation and campaign workflows",
+      "Both can support SMS, but plan limits and channel costs should be checked before purchase",
+      "Klaviyo is better suited to deeper customer segmentation and lifecycle analysis",
+      "Omnisend is easier to approach for small stores that want templates, forms, and practical automation",
+      "Neither tool removes the need for strong offers, deliverability hygiene, and ongoing flow maintenance",
+    ],
+    pricingNotes: "Both platforms can become more expensive as contacts and send volume grow. Model pricing with your actual subscriber count, expected monthly sends, and SMS usage before choosing.",
+    verdict: "Klaviyo is the stronger power-user platform for retention teams; Omnisend is the more approachable starting point for many small and mid-sized stores.",
     seoTitle: "Klaviyo vs Omnisend: Which Is Better for E-commerce?",
     seoDescription: "Compare Klaviyo and Omnisend for e-commerce email marketing, automation, segmentation, SMS, and store growth.",
   },
@@ -486,10 +526,22 @@ const alternatives = [
     slug: "klaviyo-alternatives",
     primaryToolSlug: "klaviyo",
     alternativeToolSlugs: ["omnisend", "postscript"],
-    intro: "Klaviyo is powerful, but some stores look for alternatives when they want simpler setup, different SMS workflows, or a lower-friction starting point.",
-    whyLookForAlternatives: ["Pricing changes as lists grow", "Smaller teams may prefer simpler workflows", "SMS strategy may require a more focused tool"],
-    selectionCriteria: ["Automation depth", "Ease of use", "SMS support", "Shopify integration", "Reporting"],
-    verdict: "Omnisend is a strong general alternative for smaller stores, while Postscript is worth considering when SMS is the main channel.",
+    intro: "Klaviyo is powerful, but not every store needs that much segmentation and lifecycle infrastructure on day one. Stores often compare alternatives when they want easier setup, a different SMS workflow, or a lower-friction retention stack.",
+    whyLookForAlternatives: [
+      "Pricing and complexity can increase as contact lists and message volume grow",
+      "Smaller teams may prefer a simpler campaign and automation workflow",
+      "SMS strategy may require a more focused Shopify SMS platform",
+      "Some stores want templates and forms before deep segmentation",
+    ],
+    selectionCriteria: [
+      "Email automation depth",
+      "Ease of use for a small marketing team",
+      "SMS support and consent workflow",
+      "Shopify integration quality",
+      "Reporting and attribution fit",
+      "Migration effort from existing campaigns and flows",
+    ],
+    verdict: "Omnisend is the first Klaviyo alternative to review for smaller stores that want approachable email and SMS automation. Postscript is the focused alternative when Shopify SMS is the main reason you are comparing options.",
     seoTitle: "Best Klaviyo Alternatives for E-commerce Stores",
     seoDescription: "Compare Klaviyo alternatives for e-commerce email, SMS, automation, segmentation, and retention workflows.",
   },
@@ -523,6 +575,22 @@ async function createIfMissing(uid, filters, data, options = {}) {
   });
 }
 
+async function upsertPublished(uid, filters, data) {
+  const existing = await findFirst(uid, filters);
+  if (existing) {
+    return strapi.documents(uid).update({
+      documentId: existing.documentId,
+      data,
+      status: "published",
+    });
+  }
+
+  return strapi.documents(uid).create({
+    data,
+    status: "published",
+  });
+}
+
 async function upsertSampleTool(filters, data) {
   const existing = await findFirst("api::tool.tool", filters);
 
@@ -545,7 +613,7 @@ async function seedBestLists(categoryBySlug, toolBySlug) {
     const category = categoryBySlug.get(list.categorySlug);
     const toolIds = list.toolSlugs.map((slug) => toolBySlug.get(slug)).filter(Boolean).map((tool) => tool.id);
 
-    await createIfMissing(
+    await upsertPublished(
       "api::best-list.best-list",
       { slug: { $eq: list.slug } },
       {
@@ -558,8 +626,7 @@ async function seedBestLists(categoryBySlug, toolBySlug) {
         seoDescription: list.seoDescription,
         category: category?.id ? { connect: [category.id] } : undefined,
         tools: toolIds.length ? { connect: toolIds } : undefined,
-      },
-      { publish: true }
+      }
     );
   }
 }
@@ -569,7 +636,7 @@ async function seedComparisons(toolBySlug) {
     const toolA = toolBySlug.get(comparison.toolASlug);
     const toolB = toolBySlug.get(comparison.toolBSlug);
 
-    await createIfMissing(
+    await upsertPublished(
       "api::comparison.comparison",
       { slug: { $eq: comparison.slug } },
       {
@@ -584,8 +651,7 @@ async function seedComparisons(toolBySlug) {
         seoDescription: comparison.seoDescription,
         toolA: toolA?.id ? { connect: [toolA.id] } : undefined,
         toolB: toolB?.id ? { connect: [toolB.id] } : undefined,
-      },
-      { publish: true }
+      }
     );
   }
 }
@@ -598,7 +664,7 @@ async function seedAlternatives(toolBySlug) {
       .filter(Boolean)
       .map((tool) => tool.id);
 
-    await createIfMissing(
+    await upsertPublished(
       "api::alternative.alternative",
       { slug: { $eq: alternative.slug } },
       {
@@ -612,8 +678,7 @@ async function seedAlternatives(toolBySlug) {
         seoDescription: alternative.seoDescription,
         primaryTool: primaryTool?.id ? { connect: [primaryTool.id] } : undefined,
         alternativeTools: alternativeToolIds.length ? { connect: alternativeToolIds } : undefined,
-      },
-      { publish: true }
+      }
     );
   }
 }
@@ -639,14 +704,13 @@ async function seedSampleData(strapi) {
   const toolBySlug = new Map();
 
   for (const category of categories) {
-    const entry = await createIfMissing(
+    const entry = await upsertPublished(
       "api::category.category",
       { slug: { $eq: category.slug } },
       {
         ...category,
         indexable: true,
-      },
-      { publish: true }
+      }
     );
     categoryBySlug.set(category.slug, entry);
   }
@@ -665,9 +729,12 @@ async function seedSampleData(strapi) {
         slug: tool.slug,
         editorialStatus: "published",
         websiteUrl: tool.websiteUrl,
+        affiliateUrl: tool.affiliateUrl,
+        affiliateDisclosure: tool.affiliateDisclosure,
         shortDescription: tool.shortDescription,
-        longDescription: `${tool.shortDescription}\n\nThis sample entry is intended for local MVP development. Verify pricing, features, and affiliate details before publishing production content.`,
+        longDescription: tool.longDescription || `${tool.shortDescription}\n\nThis sample entry is intended for local MVP development. Verify pricing, features, and affiliate details before publishing production content.`,
         pricingModel: tool.pricingModel,
+        startingPrice: tool.startingPrice,
         freePlanAvailable: tool.freePlanAvailable,
         keyFeatures: tool.keyFeatures,
         pros: tool.pros,
@@ -682,11 +749,11 @@ async function seedSampleData(strapi) {
         supportQualityScore: scoreValues[5],
         recommendedFor: tool.recommendedFor,
         notRecommendedFor: tool.notRecommendedFor,
-        sourceUrls: [tool.websiteUrl],
+        sourceUrls: tool.sourceUrls || [tool.websiteUrl],
         lastImportedAt: new Date().toISOString(),
         lastReviewedAt: new Date().toISOString(),
-        seoTitle: `${tool.name} Review, Pricing, Features, and Alternatives`,
-        seoDescription: `Learn what ${tool.name} does, who it is best for, key features, pricing notes, pros, cons, and alternatives for e-commerce sellers.`,
+        seoTitle: tool.seoTitle || `${tool.name} Review, Pricing, Features, and Alternatives`,
+        seoDescription: tool.seoDescription || `Learn what ${tool.name} does, who it is best for, key features, pricing notes, pros, cons, and alternatives for e-commerce sellers.`,
         categories: categoryIds.length > 0 ? { connect: categoryIds } : undefined,
         sources: source.id ? { connect: [source.id] } : undefined,
       }

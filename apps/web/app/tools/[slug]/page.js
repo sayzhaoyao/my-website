@@ -33,6 +33,14 @@ function getVerdict(tool) {
   return "Use-case dependent";
 }
 
+function paragraphs(value) {
+  if (!value || typeof value !== "string") {
+    return [];
+  }
+
+  return value.split(/\n+/).map((item) => item.trim()).filter(Boolean);
+}
+
 export async function generateStaticParams() {
   const tools = await getTools();
   return tools.map((tool) => ({ slug: tool.slug }));
@@ -73,6 +81,7 @@ export default async function ToolPage({ params }) {
   const officialUrl = tool.affiliateUrl || tool.websiteUrl;
   const pricingText = formatPricing(tool);
   const updatedAt = tool.lastReviewedAt || tool.updatedAt || tool.lastImportedAt;
+  const editorialParagraphs = paragraphs(tool.longDescription);
   const faqItems = [
     {
       question: `What is ${tool.name} best for?`,
@@ -168,7 +177,10 @@ export default async function ToolPage({ params }) {
 
             <article className="card">
               <h2>Editorial take</h2>
-              <p>{tool.decisionSummary || tool.longDescription || tool.shortDescription}</p>
+              <p>{tool.decisionSummary || tool.shortDescription}</p>
+              {editorialParagraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </article>
 
             <article className="card">
