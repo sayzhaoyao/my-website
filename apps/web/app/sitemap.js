@@ -29,6 +29,24 @@ export default async function sitemap() {
       changeFrequency: "monthly",
       priority: 0.4,
     },
+    {
+      url: `${siteUrl}/best`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/compare`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: `${siteUrl}/alternatives`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.75,
+    },
     ...categories.map((category) => ({
       url: `${siteUrl}/categories/${category.slug}`,
       lastModified: category.updatedAt ? new Date(category.updatedAt) : new Date(),
