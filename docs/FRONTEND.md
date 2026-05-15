@@ -46,6 +46,7 @@ Then re-add local bind mounts for `apps/web` in `docker-compose.yml` or run the 
 ## Pages
 
 - `/`
+- `/categories`
 - `/categories/[slug]`
 - `/tools/[slug]`
 - `/best`
@@ -54,6 +55,8 @@ Then re-add local bind mounts for `apps/web` in `docker-compose.yml` or run the 
 - `/compare/[slug]`
 - `/alternatives`
 - `/alternatives/[slug]`
+- `/editorial-policy`
+- `/affiliate-disclosure`
 - `/robots.txt`
 - `/sitemap.xml`
 
@@ -86,9 +89,11 @@ The frontend is built around decision pages rather than a simple link directory:
 - Tool pages show overview, pricing, pros and cons, categories, recommended users, users who should skip the tool, and a six-part decision score.
 - Tool review pages include a quick verdict, conversion CTA, affiliate disclosure area, review notes, FAQ, sources, and SoftwareApplication structured data.
 - Category pages include shortlist rankings, selection criteria, comparison snapshots, FAQ content, and CollectionPage structured data.
+- The category index page lists workflow categories and links users into category-specific shortlists.
 - Best Tools pages include ranked shortlists, selection criteria, quick comparison tables, CTA blocks, FAQ content, and ItemList structured data.
 - Comparison pages include a hero recommendation, decision snapshot, feature notes, pricing context, FAQ content, internal links, and Article structured data.
 - Alternatives pages include a hero recommendation, ranked replacement options, quick comparison tables, switch criteria, FAQ content, internal links, and Article/ItemList structured data.
+- Editorial policy and affiliate disclosure pages provide public trust and monetization context.
 
 Tool score fields currently used by the UI:
 
@@ -109,6 +114,9 @@ Implemented:
 - Best Tools pages,
 - comparison pages,
 - alternatives pages,
+- category index,
+- editorial policy,
+- affiliate disclosure,
 - robots.txt,
 - sitemap.xml,
 - semantic page structure,
