@@ -1,0 +1,142 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tools",
+  "info": {
+    "singularName": "tool",
+    "pluralName": "tools",
+    "displayName": "工具",
+    "description": "目录中收录的软件或 AI 工具。"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
+    },
+    "editorialStatus": {
+      "type": "enumeration",
+      "enum": ["draft", "review", "published", "archived"],
+      "default": "draft",
+      "required": true
+    },
+    "websiteUrl": {
+      "type": "string"
+    },
+    "affiliateUrl": {
+      "type": "string"
+    },
+    "affiliateDisclosure": {
+      "type": "text"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "shortDescription": {
+      "type": "text",
+      "required": true
+    },
+    "longDescription": {
+      "type": "richtext"
+    },
+    "pricingModel": {
+      "type": "enumeration",
+      "enum": ["free", "freemium", "paid", "custom", "unknown"],
+      "default": "unknown"
+    },
+    "startingPrice": {
+      "type": "decimal"
+    },
+    "freePlanAvailable": {
+      "type": "boolean",
+      "default": false
+    },
+    "keyFeatures": {
+      "type": "json"
+    },
+    "pros": {
+      "type": "json"
+    },
+    "cons": {
+      "type": "json"
+    },
+    "bestFor": {
+      "type": "json"
+    },
+    "decisionSummary": {
+      "type": "text"
+    },
+    "easeOfUseScore": {
+      "type": "integer",
+      "min": 1,
+      "max": 5
+    },
+    "pricingValueScore": {
+      "type": "integer",
+      "min": 1,
+      "max": 5
+    },
+    "integrationScore": {
+      "type": "integer",
+      "min": 1,
+      "max": 5
+    },
+    "automationDepthScore": {
+      "type": "integer",
+      "min": 1,
+      "max": 5
+    },
+    "seoUsefulnessScore": {
+      "type": "integer",
+      "min": 1,
+      "max": 5
+    },
+    "supportQualityScore": {
+      "type": "integer",
+      "min": 1,
+      "max": 5
+    },
+    "recommendedFor": {
+      "type": "json"
+    },
+    "notRecommendedFor": {
+      "type": "json"
+    },
+    "sourceUrls": {
+      "type": "json"
+    },
+    "lastImportedAt": {
+      "type": "datetime"
+    },
+    "lastReviewedAt": {
+      "type": "datetime"
+    },
+    "seoTitle": {
+      "type": "string"
+    },
+    "seoDescription": {
+      "type": "text"
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "inversedBy": "tools"
+    },
+    "sources": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::source.source",
+      "inversedBy": "tools"
+    }
+  }
+}

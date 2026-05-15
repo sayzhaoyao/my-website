@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "import_logs",
+  "info": {
+    "singularName": "import-log",
+    "pluralName": "import-logs",
+    "displayName": "导入日志",
+    "description": "采集、导入和更新任务的运行日志。"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "runStatus": {
+      "type": "enumeration",
+      "enum": ["started", "success", "partial_success", "failed"],
+      "default": "started",
+      "required": true
+    },
+    "startedAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "finishedAt": {
+      "type": "datetime"
+    },
+    "recordsCreated": {
+      "type": "integer",
+      "default": 0
+    },
+    "recordsUpdated": {
+      "type": "integer",
+      "default": 0
+    },
+    "errors": {
+      "type": "json"
+    },
+    "notes": {
+      "type": "text"
+    },
+    "source": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::source.source",
+      "inversedBy": "importLogs"
+    }
+  }
+}

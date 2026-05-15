@@ -1,0 +1,53 @@
+{
+  "kind": "collectionType",
+  "collectionName": "alternatives",
+  "info": {
+    "singularName": "alternative",
+    "pluralName": "alternatives",
+    "displayName": "替代品页面",
+    "description": "围绕某个工具的 alternatives 搜索意图页面。"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "intro": {
+      "type": "richtext"
+    },
+    "whyLookForAlternatives": {
+      "type": "json"
+    },
+    "selectionCriteria": {
+      "type": "json"
+    },
+    "verdict": {
+      "type": "text"
+    },
+    "seoTitle": {
+      "type": "string"
+    },
+    "seoDescription": {
+      "type": "text"
+    },
+    "primaryTool": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tool.tool"
+    },
+    "alternativeTools": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tool.tool"
+    }
+  }
+}

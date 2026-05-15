@@ -1,0 +1,9 @@
+node_modules
+.tmp
+.cache
+build
+dist
+public/uploads
+npm-debug.log
+yarn-error.log
+.env

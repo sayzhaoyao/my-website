@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "best_lists",
+  "info": {
+    "singularName": "best-list",
+    "pluralName": "best-lists",
+    "displayName": "最佳工具榜单",
+    "description": "面向搜索意图的 Best Tools 榜单页。"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "intro": {
+      "type": "richtext"
+    },
+    "selectionCriteria": {
+      "type": "json"
+    },
+    "verdict": {
+      "type": "text"
+    },
+    "seoTitle": {
+      "type": "string"
+    },
+    "seoDescription": {
+      "type": "text"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category"
+    },
+    "tools": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tool.tool"
+    }
+  }
+}

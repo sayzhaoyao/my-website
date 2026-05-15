@@ -1,0 +1,74 @@
+services:
+  postgres:
+    image: ${POSTGRES_IMAGE:-mirror.gcr.io/library/postgres:16-alpine}
+    container_name: my-website-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-my_website}
+      POSTGRES_USER: ${POSTGRES_USER:-my_website}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-my_website_password}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-my_website} -d ${POSTGRES_DB:-my_website}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  cms:
+    build:
+      context: ./apps/cms
+      target: development
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-mirror.gcr.io/library/node:22-alpine}
+    container_name: my-website-cms
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: development
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${POSTGRES_DB:-my_website}
+      DATABASE_USERNAME: ${POSTGRES_USER:-my_website}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-my_website_password}
+      DATABASE_SSL: "false"
+    ports:
+      - "${STRAPI_PORT:-1337}:1337"
+    volumes:
+      - ./apps/cms:/opt/app
+      - cms_node_modules:/opt/app/node_modules
+      - cms_uploads:/opt/app/public/uploads
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ./apps/web
+      target: ${WEB_DOCKER_TARGET:-production}
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-mirror.gcr.io/library/node:22-alpine}
+    container_name: my-website-web
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: ${WEB_NODE_ENV:-production}
+      PORT: 3000
+      NEXT_TELEMETRY_DISABLED: "1"
+      STRAPI_INTERNAL_URL: ${STRAPI_INTERNAL_URL:-http://cms:1337}
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    depends_on:
+      cms:
+        condition: service_started
+
+volumes:
+  postgres_data:
+  cms_node_modules:
+  cms_uploads:

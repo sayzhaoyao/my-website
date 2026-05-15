@@ -1,0 +1,56 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sources",
+  "info": {
+    "singularName": "source",
+    "pluralName": "sources",
+    "displayName": "来源",
+    "description": "用于采集、导入和人工核验的数据来源。"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "sourceType": {
+      "type": "enumeration",
+      "enum": ["official_site", "pricing_page", "rss", "api", "changelog", "manual_submission", "other"],
+      "default": "official_site"
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "permissionNotes": {
+      "type": "text"
+    },
+    "fetchFrequency": {
+      "type": "enumeration",
+      "enum": ["manual", "daily", "weekly", "monthly"],
+      "default": "manual"
+    },
+    "lastCheckedAt": {
+      "type": "datetime"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["active", "paused", "blocked", "archived"],
+      "default": "active"
+    },
+    "tools": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tool.tool",
+      "mappedBy": "sources"
+    },
+    "importLogs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::import-log.import-log",
+      "mappedBy": "source"
+    }
+  }
+}
