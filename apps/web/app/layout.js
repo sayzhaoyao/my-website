@@ -1,13 +1,34 @@
 import Link from "next/link";
 import "./globals.css";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const siteName = "Commerce Toolbase";
+const defaultDescription = "A curated directory of AI and software tools for e-commerce sellers.";
+
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
+  metadataBase: new URL(siteUrl),
+  applicationName: siteName,
   title: {
-    default: "Commerce Toolbase",
-    template: "%s | Commerce Toolbase",
+    default: siteName,
+    template: `%s | ${siteName}`,
   },
-  description: "A curated directory of AI and software tools for e-commerce sellers.",
+  description: defaultDescription,
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: siteUrl,
+    siteName,
+    title: siteName,
+    description: defaultDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteName,
+    description: defaultDescription,
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({ children }) {

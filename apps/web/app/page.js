@@ -6,6 +6,20 @@ export const metadata = {
   title: "E-commerce Software Reviews, Comparisons, and Tool Rankings",
   description:
     "Compare e-commerce software, AI tools, marketing platforms, Amazon seller tools, and Shopify apps with decision-focused reviews.",
+  openGraph: {
+    title: "E-commerce Software Reviews, Comparisons, and Tool Rankings",
+    description:
+      "Compare e-commerce software, AI tools, marketing platforms, Amazon seller tools, and Shopify apps with decision-focused reviews.",
+    url: "/",
+    type: "website",
+    siteName: "Commerce Toolbase",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "E-commerce Software Reviews, Comparisons, and Tool Rankings",
+    description:
+      "Compare e-commerce software, AI tools, marketing platforms, Amazon seller tools, and Shopify apps with decision-focused reviews.",
+  },
 };
 
 export default async function HomePage() {
