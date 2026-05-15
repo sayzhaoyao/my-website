@@ -26,6 +26,10 @@ export const metadata = {
     title: siteName,
     description: defaultDescription,
   },
+  icons: {
+    icon: "/icon",
+    apple: "/apple-icon",
+  },
   alternates: {
     canonical: "/",
     types: {
