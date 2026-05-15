@@ -2,19 +2,23 @@
   {
     "name": "Shopify",
     "url": "https://www.shopify.com/",
+    "pricingUrl": "https://www.shopify.com/pricing",
     "categorySlugs": ["workflow-automation-tools"],
     "pricingModel": "unknown",
     "bestFor": ["E-commerce store builders"],
     "recommendedFor": ["Merchants launching or scaling an online store"],
-    "notRecommendedFor": ["Teams that only need a content blog"]
+    "notRecommendedFor": ["Teams that only need a content blog"],
+    "reviewNotes": ["Verify current plan names and regional pricing before publishing."]
   },
   {
     "name": "Klaviyo",
     "url": "https://www.klaviyo.com/",
+    "pricingUrl": "https://www.klaviyo.com/pricing",
     "categorySlugs": ["email-marketing-tools"],
     "pricingModel": "freemium",
     "bestFor": ["Retention marketing", "Email and SMS automation"],
     "recommendedFor": ["DTC brands with repeat purchase potential"],
-    "notRecommendedFor": ["Tiny lists that only need basic newsletters"]
+    "notRecommendedFor": ["Tiny lists that only need basic newsletters"],
+    "reviewNotes": ["Model pricing with real contact count, email volume, and SMS volume."]
   }
 ]

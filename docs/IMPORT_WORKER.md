@@ -35,6 +35,7 @@ The first collector reads a local list of official URLs, fetches public page met
 Run:
 
 ```powershell
+docker compose --profile tools build worker
 docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input data/url-sources.sample.json --output data/generated/url-metadata.tools.json
 ```
 
@@ -54,6 +55,29 @@ Generated collector output is ignored by Git:
 
 ```text
 apps/worker/data/generated/
+```
+
+Collector output includes a `_collection` object for human review. The import worker reads this metadata during dry-run, but does not write `_collection` into Strapi tool records.
+
+Important `_collection` fields:
+
+- `collectedAt`
+- `sourceUrl`
+- `finalUrl`
+- `canonicalUrl`
+- `httpStatus`
+- `contentType`
+- `lastModified`
+- `pageTitle`
+- `pageH1`
+- `reviewRequired`
+- `reviewNotes`
+- `skippedFields`
+
+If any URL fails, the collector writes a sibling failure file next to the output:
+
+```text
+data/generated/url-metadata.tools.failures.json
 ```
 
 ## Write To Strapi
@@ -112,6 +136,8 @@ docker compose --profile tools run --rm worker npm run import:tools -- --file da
 - Keep source URLs on every imported record.
 - Use dry-run before every new source format.
 - Review scores manually before publishing.
+- Treat collector output as a draft proposal, not final editorial content.
+- Confirm pricing, feature claims, affiliate terms, and source freshness manually.
 - Every write run creates an import log.
 
 ## Duplicate Detection
@@ -158,6 +184,15 @@ URL collector input example:
 ```text
 apps/worker/data/url-sources.sample.json
 ```
+
+Optional URL collector fields:
+
+- `pricingUrl`
+- `changelogUrl`
+- `sourceUrls`
+- `affiliateUrl`
+- `affiliateDisclosure`
+- `reviewNotes`
 
 ## Next Worker Milestones
 

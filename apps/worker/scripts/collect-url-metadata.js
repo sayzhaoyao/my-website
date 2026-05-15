@@ -83,11 +83,18 @@ function extractMetadata(html) {
   ]);
 
   const h1 = firstMatch(html, [/<h1[^>]*>([\s\S]*?)<\/h1>/i]);
+  const canonicalUrl = firstMatch(html, [
+    /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["'][^>]*>/i,
+    /<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["'][^>]*>/i,
+    /<meta[^>]+property=["']og:url["'][^>]+content=["']([^"']+)["'][^>]*>/i,
+    /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:url["'][^>]*>/i,
+  ]);
 
   return {
     title: stripTags(title),
     description: stripTags(description),
     h1: stripTags(h1),
+    canonicalUrl: stripTags(canonicalUrl),
   };
 }
 
@@ -118,26 +125,73 @@ async function fetchHtml(url, timeoutMs) {
       throw new Error(`HTTP ${response.status}`);
     }
 
-    return await response.text();
+    return {
+      finalUrl: response.url,
+      status: response.status,
+      contentType: response.headers.get("content-type") || "",
+      lastModified: response.headers.get("last-modified") || "",
+      html: await response.text(),
+    };
   } finally {
     clearTimeout(timeout);
   }
 }
 
-function toToolRecord(source, metadata, options) {
+function uniqueStrings(values) {
+  return Array.from(new Set(values.filter(Boolean).map((value) => String(value).trim()).filter(Boolean)));
+}
+
+function createReviewNotes(source, metadata, fetchInfo) {
+  const notes = [
+    "Review generated metadata before publishing.",
+    "Confirm pricing, plan limits, feature claims, and affiliate terms manually.",
+  ];
+
+  if (!metadata.description) {
+    notes.push("No meta description was found; shortDescription may need manual writing.");
+  }
+
+  if (!metadata.h1) {
+    notes.push("No H1 was found; verify the page is the correct official product page.");
+  }
+
+  if (fetchInfo.contentType && !fetchInfo.contentType.includes("text/html")) {
+    notes.push(`Unexpected content type: ${fetchInfo.contentType}.`);
+  }
+
+  if (source.reviewNotes) {
+    notes.push(...uniqueStrings(Array.isArray(source.reviewNotes) ? source.reviewNotes : [source.reviewNotes]));
+  }
+
+  return uniqueStrings(notes);
+}
+
+function toToolRecord(source, metadata, fetchInfo, options) {
   const name = source.name || metadata.h1 || metadata.title;
   const cleanName = String(name || "").trim();
   const description = source.shortDescription || metadata.description || metadata.h1 || metadata.title;
   const categorySlugs = source.categorySlugs || (options.categorySlug ? [options.categorySlug] : []);
+  const fetchedAt = new Date().toISOString();
+  const canonicalOrFinalUrl = metadata.canonicalUrl || fetchInfo.finalUrl || source.url;
+  const sourceUrls = uniqueStrings([
+    source.url,
+    canonicalOrFinalUrl,
+    ...(source.sourceUrls || []),
+    ...(source.pricingUrl ? [source.pricingUrl] : []),
+    ...(source.changelogUrl ? [source.changelogUrl] : []),
+  ]);
 
   return {
     name: cleanName,
     slug: source.slug || slugify(cleanName),
     editorialStatus: source.editorialStatus || "review",
     websiteUrl: source.url,
+    affiliateUrl: source.affiliateUrl || undefined,
+    affiliateDisclosure: source.affiliateDisclosure || undefined,
     shortDescription: String(description || "Imported tool metadata pending editorial review.").slice(0, 500),
     longDescription: source.longDescription || metadata.description || "",
     pricingModel: source.pricingModel || "unknown",
+    startingPrice: source.startingPrice,
     freePlanAvailable: Boolean(source.freePlanAvailable),
     keyFeatures: source.keyFeatures || [],
     pros: source.pros || [],
@@ -146,10 +200,31 @@ function toToolRecord(source, metadata, options) {
     decisionSummary: source.decisionSummary || "Imported from public page metadata. Review before publishing.",
     recommendedFor: source.recommendedFor || [],
     notRecommendedFor: source.notRecommendedFor || [],
-    sourceUrls: [source.url],
+    sourceUrls,
     categorySlugs,
     seoTitle: source.seoTitle || metadata.title || cleanName,
     seoDescription: source.seoDescription || metadata.description || description,
+    _collection: {
+      collector: "url-metadata",
+      collectedAt: fetchedAt,
+      sourceUrl: source.url,
+      finalUrl: fetchInfo.finalUrl || source.url,
+      canonicalUrl: metadata.canonicalUrl || "",
+      httpStatus: fetchInfo.status,
+      contentType: fetchInfo.contentType,
+      lastModified: fetchInfo.lastModified,
+      pageTitle: metadata.title,
+      pageH1: metadata.h1,
+      reviewRequired: true,
+      reviewNotes: createReviewNotes(source, metadata, fetchInfo),
+      skippedFields: [
+        "pricing details",
+        "feature claims",
+        "scores",
+        "pros and cons",
+        "affiliate status",
+      ],
+    },
   };
 }
 
@@ -172,12 +247,17 @@ async function main() {
     }
 
     try {
-      const html = await fetchHtml(source.url, options.timeoutMs);
-      const metadata = extractMetadata(html);
-      records.push(toToolRecord(source, metadata, options));
+      const fetchInfo = await fetchHtml(source.url, options.timeoutMs);
+      const metadata = extractMetadata(fetchInfo.html);
+      records.push(toToolRecord(source, metadata, fetchInfo, options));
       console.log(`collected: ${source.name || source.url}`);
     } catch (error) {
-      failures.push({ name: source.name || source.url, error: error.message });
+      failures.push({
+        name: source.name || source.url,
+        url: source.url,
+        collectedAt: new Date().toISOString(),
+        error: error.message,
+      });
       console.warn(`failed: ${source.name || source.url}: ${error.message}`);
     }
   }
@@ -186,6 +266,9 @@ async function main() {
   console.log(`Wrote ${records.length} record(s) to ${options.output}.`);
 
   if (failures.length > 0) {
+    const failureOutput = options.output.replace(/\.json$/i, ".failures.json");
+    await writeJson(failureOutput, failures);
+    console.warn(`Failure details written to ${failureOutput}.`);
     console.warn(`Failures: ${failures.length}`);
     process.exitCode = 1;
   }

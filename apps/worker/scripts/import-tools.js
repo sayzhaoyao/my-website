@@ -142,6 +142,7 @@ function normalizeTool(input) {
   return {
     data,
     categorySlugs: assertArray(input.categorySlugs, "categorySlugs", errors).map(slugify),
+    collection: input._collection || null,
     errors,
   };
 }
@@ -343,7 +344,22 @@ async function main() {
 
   if (options.dryRun) {
     for (const record of normalized) {
-      console.log(`[dry-run] ${record.data.slug}: ready for import as ${record.data.editorialStatus}.`);
+      const reviewLabel = record.collection?.reviewRequired ? "review required" : "manual review recommended";
+      console.log(`[dry-run] ${record.data.slug}: ready for import as ${record.data.editorialStatus} (${reviewLabel}).`);
+      if (record.collection?.sourceUrl) {
+        console.log(`  source: ${record.collection.sourceUrl}`);
+      }
+      if (record.collection?.lastModified) {
+        console.log(`  source last-modified: ${record.collection.lastModified}`);
+      }
+      if (Array.isArray(record.collection?.reviewNotes) && record.collection.reviewNotes.length > 0) {
+        for (const note of record.collection.reviewNotes.slice(0, 4)) {
+          console.log(`  review note: ${note}`);
+        }
+      }
+      if (Array.isArray(record.collection?.skippedFields) && record.collection.skippedFields.length > 0) {
+        console.log(`  skipped fields: ${record.collection.skippedFields.join(", ")}`);
+      }
     }
     console.log(`[dry-run] source: ${options.sourceName} (${options.sourceUrl || `file://${options.file}`})`);
     console.log("Dry run complete. Re-run with --write and STRAPI_API_TOKEN to write to Strapi.");
