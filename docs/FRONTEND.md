@@ -55,8 +55,12 @@ Then re-add local bind mounts for `apps/web` in `docker-compose.yml` or run the 
 - `/compare/[slug]`
 - `/alternatives`
 - `/alternatives/[slug]`
+- `/about`
+- `/contact`
 - `/editorial-policy`
 - `/affiliate-disclosure`
+- `/privacy-policy`
+- `/terms`
 - `/robots.txt`
 - `/sitemap.xml`
 
@@ -94,6 +98,7 @@ The frontend is built around decision pages rather than a simple link directory:
 - Comparison pages include a hero recommendation, decision snapshot, feature notes, pricing context, FAQ content, internal links, and Article structured data.
 - Alternatives pages include a hero recommendation, ranked replacement options, quick comparison tables, switch criteria, FAQ content, internal links, and Article/ItemList structured data.
 - Editorial policy and affiliate disclosure pages provide public trust and monetization context.
+- About, contact, privacy, and terms pages provide site identity, contact, and basic legal context.
 
 Tool score fields currently used by the UI:
 
@@ -117,6 +122,9 @@ Implemented:
 - category index,
 - editorial policy,
 - affiliate disclosure,
+- about and contact pages,
+- privacy policy,
+- terms of use,
 - robots.txt,
 - sitemap.xml,
 - semantic page structure,
