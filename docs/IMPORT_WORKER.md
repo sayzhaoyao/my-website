@@ -44,6 +44,20 @@ For local testing, give the token enough permission to read and write tools and 
 STRAPI_API_TOKEN=your_token_here
 ```
 
+If manual token creation is unreliable locally, generate a worker token with:
+
+```powershell
+docker compose exec cms node scripts/create-worker-token.js worker-local-full-access
+```
+
+The script writes the plaintext token to this ignored local file:
+
+```text
+apps/cms/.tmp/worker-token.txt
+```
+
+Copy that value into `.env` as `STRAPI_API_TOKEN`, then delete the temporary token file.
+
 Then run:
 
 ```powershell
