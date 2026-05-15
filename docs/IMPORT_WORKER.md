@@ -108,6 +108,12 @@ To write actionable items into the CMS Review Queue:
 powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1 -WriteQueue
 ```
 
+If you already reviewed the generated report and only want to sync that exact report:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1 -UseExistingReport -WriteQueue
+```
+
 If it looks good, write it to Strapi:
 
 ```powershell

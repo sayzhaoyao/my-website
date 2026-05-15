@@ -3,6 +3,7 @@ param(
   [string]$CurrentFile = "data/generated/url-metadata.tools.json",
   [string]$PreviousFile = "data/generated/url-metadata.previous.json",
   [string]$ReportFile = "data/generated/url-metadata.review-report.json",
+  [switch]$UseExistingReport,
   [switch]$WriteQueue
 )
 
@@ -19,19 +20,23 @@ New-Item -ItemType Directory -Force -Path $workerDataDir | Out-Null
 Write-Host "[content-review] Building worker image"
 docker compose --profile tools build worker
 
-if (Test-Path -LiteralPath $currentHostPath) {
-  Write-Host "[content-review] Saving previous collector output"
-  Copy-Item -LiteralPath $currentHostPath -Destination $previousHostPath -Force
-} elseif (-not (Test-Path -LiteralPath $previousHostPath)) {
-  Write-Host "[content-review] No previous output found; collecting baseline first"
-  docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input $InputFile --output $PreviousFile
+if (-not $UseExistingReport) {
+  if (Test-Path -LiteralPath $currentHostPath) {
+    Write-Host "[content-review] Saving previous collector output"
+    Copy-Item -LiteralPath $currentHostPath -Destination $previousHostPath -Force
+  } elseif (-not (Test-Path -LiteralPath $previousHostPath)) {
+    Write-Host "[content-review] No previous output found; collecting baseline first"
+    docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input $InputFile --output $PreviousFile
+  }
+
+  Write-Host "[content-review] Collecting current metadata"
+  docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input $InputFile --output $CurrentFile
+
+  Write-Host "[content-review] Comparing current metadata against previous run"
+  docker compose --profile tools run --rm worker npm run compare:collections -- --previous $PreviousFile --current $CurrentFile --output $ReportFile
+} else {
+  Write-Host "[content-review] Using existing report: $ReportFile"
 }
-
-Write-Host "[content-review] Collecting current metadata"
-docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input $InputFile --output $CurrentFile
-
-Write-Host "[content-review] Comparing current metadata against previous run"
-docker compose --profile tools run --rm worker npm run compare:collections -- --previous $PreviousFile --current $CurrentFile --output $ReportFile
 
 if ($WriteQueue) {
   Write-Host "[content-review] Syncing review queue to CMS"

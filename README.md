@@ -74,6 +74,12 @@ To also write actionable review items into the CMS Review Queue:
 powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1 -WriteQueue
 ```
 
+If you already checked the dry-run report and only want to sync that existing report:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1 -UseExistingReport -WriteQueue
+```
+
 ## Next Step
 
 Read these files in order:

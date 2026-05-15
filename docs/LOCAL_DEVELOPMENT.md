@@ -84,6 +84,12 @@ Write actionable review items into Strapi after checking the dry-run:
 powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1 -WriteQueue
 ```
 
+If a dry-run already produced the report you want, sync that existing report without collecting again:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1 -UseExistingReport -WriteQueue
+```
+
 Generated collector files and reports stay ignored under:
 
 ```text
