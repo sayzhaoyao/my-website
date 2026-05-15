@@ -677,7 +677,7 @@ export interface ApiReviewQueueReviewQueue extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'low'>;
     publishedAt: Schema.Attribute.DateTime;
-    queueKey: Schema.Attribute.UID &
+    queueKey: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.Unique;
     reportSummary: Schema.Attribute.JSON;
