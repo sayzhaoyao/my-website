@@ -117,6 +117,33 @@ async function resolveToolDocumentId(client, slug) {
   return tool?.documentId || null;
 }
 
+async function createImportLog(client, options) {
+  const body = await client.request("/api/import-logs", {
+    method: "POST",
+    body: JSON.stringify({
+      data: {
+        runStatus: "started",
+        startedAt: new Date().toISOString(),
+        recordsCreated: 0,
+        recordsUpdated: 0,
+        notes: `Review queue sync started from ${options.file}.`,
+      },
+    }),
+  });
+  return body?.data?.documentId || null;
+}
+
+async function updateImportLog(client, documentId, data) {
+  if (!documentId) {
+    return;
+  }
+
+  await client.request(`/api/import-logs/${documentId}`, {
+    method: "PUT",
+    body: JSON.stringify({ data }),
+  });
+}
+
 async function upsertReviewQueueItem(client, item, report) {
   const data = normalizeItem(item, report);
   const existing = await findByField(client, "review-queues", "queueKey", data.queueKey);
@@ -178,6 +205,7 @@ async function main() {
   const baseUrl = process.env.STRAPI_URL || "http://localhost:1337";
   const client = createClient({ baseUrl, token });
   const summary = { created: 0, updated: 0, errors: [] };
+  const importLogDocumentId = await createImportLog(client, options);
 
   for (const item of actionableItems) {
     try {
@@ -189,6 +217,21 @@ async function main() {
       console.error(`failed: ${queueKey(item)}: ${error.message}`);
     }
   }
+
+  const runStatus = summary.errors.length > 0
+    ? summary.created > 0 || summary.updated > 0
+      ? "partial_success"
+      : "failed"
+    : "success";
+
+  await updateImportLog(client, importLogDocumentId, {
+    runStatus,
+    finishedAt: new Date().toISOString(),
+    recordsCreated: summary.created,
+    recordsUpdated: summary.updated,
+    errors: summary.errors,
+    notes: `Review queue sync finished from ${options.file}. Items in report: ${report.items.length}. Actionable items: ${actionableItems.length}.`,
+  });
 
   console.log(`Review queue sync complete. Created: ${summary.created}. Updated: ${summary.updated}. Errors: ${summary.errors.length}.`);
   if (summary.errors.length > 0) {
