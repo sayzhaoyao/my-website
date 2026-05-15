@@ -87,8 +87,8 @@ The frontend is built around decision pages rather than a simple link directory:
 - Tool review pages include a quick verdict, conversion CTA, affiliate disclosure area, review notes, FAQ, sources, and SoftwareApplication structured data.
 - Category pages include shortlist rankings, selection criteria, comparison snapshots, FAQ content, and CollectionPage structured data.
 - Best Tools pages include ranked shortlists, selection criteria, quick comparison tables, CTA blocks, FAQ content, and ItemList structured data.
-- Comparison pages explain the recommendation between two tools.
-- Alternatives pages connect one primary tool to replacement options.
+- Comparison pages include a hero recommendation, decision snapshot, feature notes, pricing context, FAQ content, internal links, and Article structured data.
+- Alternatives pages include a hero recommendation, ranked replacement options, quick comparison tables, switch criteria, FAQ content, internal links, and Article/ItemList structured data.
 
 Tool score fields currently used by the UI:
 
