@@ -3,6 +3,7 @@ import { getAlternatives, getBestLists, getCategories, getComparisons, getTools 
 const staticPages = [
   { path: "/about", changeFrequency: "monthly", priority: 0.4 },
   { path: "/contact", changeFrequency: "monthly", priority: 0.3 },
+  { path: "/methodology", changeFrequency: "monthly", priority: 0.45 },
   { path: "/editorial-policy", changeFrequency: "monthly", priority: 0.4 },
   { path: "/affiliate-disclosure", changeFrequency: "monthly", priority: 0.4 },
   { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.25 },

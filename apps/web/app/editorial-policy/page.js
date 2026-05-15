@@ -34,7 +34,10 @@ export default function EditorialPolicyPage() {
           <article className="card">
             <h2>Corrections</h2>
             <p>Software products change often. If a page appears outdated, the recommended next step is to verify the official source, update the relevant CMS entry, and mark the review queue item as resolved.</p>
-            <Link className="button secondary" href="/affiliate-disclosure">Read affiliate disclosure</Link>
+            <div className="hero-actions">
+              <Link className="button secondary" href="/methodology">Read methodology</Link>
+              <Link className="button secondary" href="/affiliate-disclosure">Read affiliate disclosure</Link>
+            </div>
           </article>
         </div>
       </section>

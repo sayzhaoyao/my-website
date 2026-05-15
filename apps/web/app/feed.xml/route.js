@@ -49,6 +49,12 @@ export async function GET() {
       description: "Ranked buying guides for e-commerce software decisions.",
       updatedAt: new Date(),
     },
+    {
+      title: "Commerce Toolbase review methodology",
+      url: `${siteUrl}/methodology`,
+      description: "How Commerce Toolbase scores e-commerce software and verifies source-aware review claims.",
+      updatedAt: new Date(),
+    },
   ];
 
   const items = [

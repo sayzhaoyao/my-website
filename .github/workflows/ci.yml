@@ -47,6 +47,7 @@ jobs:
           curl -fsS http://localhost:3000/best | grep -q "Best"
           curl -fsS http://localhost:3000/compare | grep -q "Compare"
           curl -fsS http://localhost:3000/alternatives | grep -q "Alternatives"
+          curl -fsS http://localhost:3000/methodology | grep -q "How Commerce Toolbase scores"
           curl -fsS http://localhost:3000/sitemap.xml | grep -q "<urlset"
           curl -fsS http://localhost:3000/robots.txt | grep -q "Sitemap"
           curl -fsS http://localhost:3000/feed.xml | grep -q "<rss"

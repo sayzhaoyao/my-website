@@ -75,6 +75,7 @@ export default function RootLayout({ children }) {
               <nav className="footer-links" aria-label="Footer navigation">
                 <Link href="/about">About</Link>
                 <Link href="/contact">Contact</Link>
+                <Link href="/methodology">Methodology</Link>
                 <Link href="/editorial-policy">Editorial Policy</Link>
                 <Link href="/affiliate-disclosure">Affiliate Disclosure</Link>
                 <Link href="/privacy-policy">Privacy</Link>

@@ -57,6 +57,7 @@ Then re-add local bind mounts for `apps/web` in `docker-compose.yml` or run the 
 - `/alternatives/[slug]`
 - `/about`
 - `/contact`
+- `/methodology`
 - `/editorial-policy`
 - `/affiliate-disclosure`
 - `/privacy-policy`
@@ -101,7 +102,7 @@ The frontend is built around decision pages rather than a simple link directory:
 - Best Tools pages include ranked shortlists, selection criteria, quick comparison tables, CTA blocks, FAQ content, and ItemList structured data.
 - Comparison pages include a hero recommendation, decision snapshot, feature notes, pricing context, FAQ content, internal links, and Article structured data.
 - Alternatives pages include a hero recommendation, ranked replacement options, quick comparison tables, switch criteria, FAQ content, internal links, and Article/ItemList structured data.
-- Editorial policy and affiliate disclosure pages provide public trust and monetization context.
+- Methodology, editorial policy, and affiliate disclosure pages provide public trust, scoring, and monetization context.
 - About, contact, privacy, and terms pages provide site identity, contact, and basic legal context.
 
 Tool score fields currently used by the UI:
@@ -127,6 +128,7 @@ Implemented:
 - editorial policy,
 - affiliate disclosure,
 - about and contact pages,
+- review methodology page,
 - privacy policy,
 - terms of use,
 - default Open Graph and Twitter metadata,
