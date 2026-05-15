@@ -104,6 +104,7 @@ The frontend is built around decision pages rather than a simple link directory:
 - Best Tools pages include ranked shortlists, selection criteria, quick comparison tables, CTA blocks, FAQ content, and ItemList structured data.
 - Comparison pages include a hero recommendation, decision snapshot, feature notes, pricing context, FAQ content, internal links, and Article structured data.
 - Alternatives pages include a hero recommendation, ranked replacement options, quick comparison tables, switch criteria, FAQ content, internal links, and Article/ItemList structured data.
+- Tool, category, best-list, comparison, and alternatives detail pages include visible breadcrumbs and BreadcrumbList structured data.
 - Methodology, editorial policy, and affiliate disclosure pages provide public trust, scoring, and monetization context.
 - About, contact, privacy, and terms pages provide site identity, contact, and basic legal context.
 
@@ -135,6 +136,7 @@ Implemented:
 - terms of use,
 - default Open Graph and Twitter metadata,
 - generated Open Graph and Twitter preview images,
+- BreadcrumbList structured data on decision pages,
 - web app manifest,
 - generated browser and Apple icons,
 - robots.txt,
