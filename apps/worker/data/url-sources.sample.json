@@ -22,5 +22,31 @@
     "recommendedFor": ["DTC brands with repeat purchase potential"],
     "notRecommendedFor": ["Tiny lists that only need basic newsletters"],
     "reviewNotes": ["Model pricing with real contact count, email volume, and SMS volume."]
+  },
+  {
+    "name": "Omnisend",
+    "url": "https://www.omnisend.com/",
+    "pricingUrl": "https://www.omnisend.com/pricing/",
+    "changelogUrl": "https://www.omnisend.com/changelog/",
+    "categorySlugs": ["email-marketing-tools"],
+    "pricingModel": "freemium",
+    "freePlanAvailable": true,
+    "bestFor": ["Small e-commerce stores", "Email and SMS automation"],
+    "recommendedFor": ["Stores that want approachable retention workflows"],
+    "notRecommendedFor": ["Advanced lifecycle teams that need deep customer data modeling"],
+    "reviewNotes": ["Verify contact tiers, monthly email send limits, SMS terms, and current plan names."]
+  },
+  {
+    "name": "Postscript",
+    "url": "https://postscript.io/",
+    "pricingUrl": "https://help.postscript.io/en/articles/13563897-postscript-plans-overview",
+    "changelogUrl": "https://help.postscript.io/en/articles/14425151-q1-2026-what-s-new",
+    "categorySlugs": ["email-marketing-tools"],
+    "pricingModel": "paid",
+    "freePlanAvailable": false,
+    "bestFor": ["Shopify SMS marketing", "Retention campaigns"],
+    "recommendedFor": ["Shopify brands treating SMS as a serious owned channel"],
+    "notRecommendedFor": ["Stores that only need basic email newsletters"],
+    "reviewNotes": ["Verify current usage billing, carrier fee handling, compliance requirements, and latest product-update page."]
   }
 ]
