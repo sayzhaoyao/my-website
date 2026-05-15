@@ -39,6 +39,8 @@ export default function RootLayout({ children }) {
                 <Link href="/contact">Contact</Link>
                 <Link href="/editorial-policy">Editorial Policy</Link>
                 <Link href="/affiliate-disclosure">Affiliate Disclosure</Link>
+                <Link href="/privacy-policy">Privacy</Link>
+                <Link href="/terms">Terms</Link>
               </nav>
             </div>
           </footer>
