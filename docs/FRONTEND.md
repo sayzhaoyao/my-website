@@ -82,6 +82,7 @@ The CMS bootstrap grants Public role read access to:
 
 The frontend is built around decision pages rather than a simple link directory:
 
+- The homepage explains the review site positioning, routes users by search intent, surfaces categories, scored tools, buying guides, comparisons, alternatives, FAQ, and WebSite structured data.
 - Tool pages show overview, pricing, pros and cons, categories, recommended users, users who should skip the tool, and a six-part decision score.
 - Tool review pages include a quick verdict, conversion CTA, affiliate disclosure area, review notes, FAQ, sources, and SoftwareApplication structured data.
 - Category pages include shortlist rankings, selection criteria, comparison snapshots, FAQ content, and CollectionPage structured data.

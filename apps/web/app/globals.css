@@ -173,6 +173,28 @@ h1 {
   box-shadow: var(--shadow);
 }
 
+.home-verdict-card {
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 22px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.home-verdict-card h2 {
+  margin: 0;
+  font-size: 26px;
+  line-height: 1.15;
+}
+
+.home-verdict-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
 .stat-row {
   display: flex;
   justify-content: space-between;
@@ -448,6 +470,15 @@ h1 {
 .decision-box.caution {
   border-color: rgb(203 107 11 / 0.26);
   background: #fffaf3;
+}
+
+.intent-card {
+  min-height: 150px;
+}
+
+.ordered-list {
+  list-style: decimal;
+  padding-left: 20px;
 }
 
 .faq-list {
