@@ -70,6 +70,14 @@ docker compose down
 docker compose logs -f web
 ```
 
+## Local Verification
+
+After the stack is running, check the main website, SEO endpoints, icons, and CMS admin route:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/verify-local.ps1
+```
+
 ## Content Review Pipeline
 
 Run the local collection, comparison, and review-queue dry-run:

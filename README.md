@@ -82,6 +82,12 @@ Worker:   Node.js scripts through the Docker Compose tools profile
 
 ## Content Review Pipeline
 
+Run a local website/CMS health check after Docker is running:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/verify-local.ps1
+```
+
 Run a local content collection and review check:
 
 ```powershell
