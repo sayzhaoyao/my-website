@@ -171,6 +171,23 @@ export default async function HomePage() {
       </section>
 
       <section className="section">
+        <div className="container">
+          <article className="card cta-card">
+            <div className="section-header">
+              <div>
+                <h2>Why trust the reviews?</h2>
+                <p>Commerce Toolbase separates source collection from editorial judgment, uses a published score model, and keeps affiliate context visible before monetization.</p>
+              </div>
+              <div className="hero-actions">
+                <a className="button secondary" href="/methodology">Read methodology</a>
+                <a className="button secondary" href="/editorial-policy">Editorial policy</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="section">
         <div className="container two-column">
           <div className="detail-panel">
             <article className="card">

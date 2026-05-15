@@ -51,6 +51,7 @@ export default function AboutPage() {
             <p>Browse categories when you know the problem. Use comparisons or alternatives when your shortlist is already narrow.</p>
             <div className="hero-actions">
               <Link className="button primary" href="/categories">Browse categories</Link>
+              <Link className="button secondary" href="/methodology">Review methodology</Link>
               <Link className="button secondary" href="/editorial-policy">Editorial policy</Link>
             </div>
           </article>
