@@ -12,6 +12,7 @@ Read these in order:
 3. `docs/WEBSITE_STRATEGY.md`: broader strategy options and long-term considerations.
 4. `docs/LAUNCH_CHECKLIST.md`: production launch, SEO, trust, monetization, and operations checklist.
 5. `docs/DEPLOYMENT.md`: production hosting options, environment variables, and deployment checks.
+6. `docs/CONTENT_QA.md`: page-level QA criteria before promotion or monetization.
 
 ## Recommended Next Decisions
 Before public launch, decide:

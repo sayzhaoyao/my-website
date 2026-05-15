@@ -117,15 +117,16 @@ Read these files in order:
 1. `docs/SITE_DIRECTION.md`
 2. `docs/MVP_SPEC.md`
 3. `docs/CONTENT_PLAN.md`
-4. `docs/LOCAL_DEVELOPMENT.md`
-5. `docs/CMS_ADMIN.md`
-6. `docs/FRONTEND.md`
-7. `docs/IMPORT_WORKER.md`
-8. `docs/SOURCE_POLICY.md`
-9. `docs/LAUNCH_CHECKLIST.md`
-10. `docs/DEPLOYMENT.md`
-11. `docs/PROJECT_PLAN.md`
-12. `docs/WEBSITE_STRATEGY.md`
+4. `docs/CONTENT_QA.md`
+5. `docs/LOCAL_DEVELOPMENT.md`
+6. `docs/CMS_ADMIN.md`
+7. `docs/FRONTEND.md`
+8. `docs/IMPORT_WORKER.md`
+9. `docs/SOURCE_POLICY.md`
+10. `docs/LAUNCH_CHECKLIST.md`
+11. `docs/DEPLOYMENT.md`
+12. `docs/PROJECT_PLAN.md`
+13. `docs/WEBSITE_STRATEGY.md`
 
 The current recommendation is to build a niche directory and comparison website for AI and software tools used by cross-border e-commerce sellers, using Next.js, Strapi, PostgreSQL, and Docker Compose.
 
