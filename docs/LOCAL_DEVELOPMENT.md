@@ -70,6 +70,26 @@ docker compose down
 docker compose logs -f web
 ```
 
+## Content Review Pipeline
+
+Run the local collection, comparison, and review-queue dry-run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1
+```
+
+Write actionable review items into Strapi after checking the dry-run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1 -WriteQueue
+```
+
+Generated collector files and reports stay ignored under:
+
+```text
+apps/worker/data/generated/
+```
+
 ## Reset Local Database
 
 This deletes local PostgreSQL data and uploaded media volumes:
@@ -107,6 +127,7 @@ Use this only when you are comfortable losing local CMS content.
 - `Category`
 - `Source`
 - `Import Log`
+- `Review Queue`
 
 ## Notes
 

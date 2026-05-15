@@ -86,6 +86,28 @@ The sync uses `queueKey` to update existing queue items instead of creating dupl
 
 The review queue is an internal CMS collection and is not granted public read access.
 
+## One-Command Local Pipeline
+
+From the repository root:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1
+```
+
+This script:
+
+1. builds the worker image,
+2. preserves the previous collector output,
+3. collects current URL metadata,
+4. compares previous and current outputs,
+5. dry-runs review queue sync.
+
+To write actionable items into the CMS Review Queue:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1 -WriteQueue
+```
+
 If it looks good, write it to Strapi:
 
 ```powershell

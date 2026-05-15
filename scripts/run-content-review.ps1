@@ -1,0 +1,44 @@
+param(
+  [string]$InputFile = "data/url-sources.sample.json",
+  [string]$CurrentFile = "data/generated/url-metadata.tools.json",
+  [string]$PreviousFile = "data/generated/url-metadata.previous.json",
+  [string]$ReportFile = "data/generated/url-metadata.review-report.json",
+  [switch]$WriteQueue
+)
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = "Stop"
+
+$repoRoot = Split-Path -Parent $PSScriptRoot
+$workerDataDir = Join-Path $repoRoot "apps/worker/data/generated"
+$currentHostPath = Join-Path $repoRoot ("apps/worker/" + $CurrentFile)
+$previousHostPath = Join-Path $repoRoot ("apps/worker/" + $PreviousFile)
+
+New-Item -ItemType Directory -Force -Path $workerDataDir | Out-Null
+
+Write-Host "[content-review] Building worker image"
+docker compose --profile tools build worker
+
+if (Test-Path -LiteralPath $currentHostPath) {
+  Write-Host "[content-review] Saving previous collector output"
+  Copy-Item -LiteralPath $currentHostPath -Destination $previousHostPath -Force
+} elseif (-not (Test-Path -LiteralPath $previousHostPath)) {
+  Write-Host "[content-review] No previous output found; collecting baseline first"
+  docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input $InputFile --output $PreviousFile
+}
+
+Write-Host "[content-review] Collecting current metadata"
+docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input $InputFile --output $CurrentFile
+
+Write-Host "[content-review] Comparing current metadata against previous run"
+docker compose --profile tools run --rm worker npm run compare:collections -- --previous $PreviousFile --current $CurrentFile --output $ReportFile
+
+if ($WriteQueue) {
+  Write-Host "[content-review] Syncing review queue to CMS"
+  docker compose --profile tools run --rm worker npm run sync:review-queue -- --file $ReportFile --write
+} else {
+  Write-Host "[content-review] Dry-run review queue sync"
+  docker compose --profile tools run --rm worker npm run sync:review-queue -- --file $ReportFile --dry-run
+}
+
+Write-Host "[content-review] Done"

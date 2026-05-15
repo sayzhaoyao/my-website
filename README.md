@@ -60,6 +60,20 @@ CMS:      Strapi on port 1337
 Database: PostgreSQL on port 5432
 ```
 
+## Content Review Pipeline
+
+Run a local content collection and review check:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1
+```
+
+To also write actionable review items into the CMS Review Queue:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1 -WriteQueue
+```
+
 ## Next Step
 
 Read these files in order:
