@@ -80,6 +80,10 @@ Database: PostgreSQL on port 5432
 Worker:   Node.js scripts through the Docker Compose tools profile
 ```
 
+## Checks
+
+GitHub Actions runs a Docker Compose build and smoke test on pushes and pull requests.
+
 ## Content Review Pipeline
 
 Run a local website/CMS health check after Docker is running:

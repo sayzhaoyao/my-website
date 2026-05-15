@@ -50,6 +50,7 @@ Verified on 2026-05-14:
   - 20 tool documents
   - 1 source document
   - 1 import log document
+- A GitHub Actions workflow also validates Docker Compose startup and public smoke-test endpoints on push and pull request.
 
 The Compose file uses configurable image sources and currently defaults to `mirror.gcr.io` for the base `postgres` and `node` images. If your network can access Docker Hub normally, you can switch these values in `.env`:
 
