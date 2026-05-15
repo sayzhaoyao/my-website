@@ -67,6 +67,8 @@ Test-Url -Name "RSS feed" -Url "$WebUrl/feed.xml" -ExpectedText "<rss" -Expected
 Test-Url -Name "Manifest" -Url "$WebUrl/manifest.webmanifest" -ExpectedText "Commerce Toolbase"
 Test-Url -Name "Icon" -Url "$WebUrl/icon" -ExpectedContentType "image/png"
 Test-Url -Name "Apple icon" -Url "$WebUrl/apple-icon" -ExpectedContentType "image/png"
+Test-Url -Name "Open Graph image" -Url "$WebUrl/opengraph-image" -ExpectedContentType "image/png"
+Test-Url -Name "Twitter image" -Url "$WebUrl/twitter-image" -ExpectedContentType "image/png"
 
 Write-Host "[verify-local] Checking CMS endpoint"
 Test-Url -Name "CMS admin" -Url "$CmsUrl/admin" -ExpectedText "Strapi"

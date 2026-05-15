@@ -22,11 +22,20 @@ export const metadata = {
     siteName,
     title: siteName,
     description: defaultDescription,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Commerce Toolbase software review preview",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteName,
     description: defaultDescription,
+    images: ["/twitter-image"],
   },
   icons: {
     icon: "/icon",

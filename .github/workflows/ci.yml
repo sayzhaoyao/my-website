@@ -54,6 +54,8 @@ jobs:
           curl -fsS http://localhost:3000/manifest.webmanifest | grep -q "Commerce Toolbase"
           curl -fsSI http://localhost:3000/icon | grep -qi "content-type: image/png"
           curl -fsSI http://localhost:3000/apple-icon | grep -qi "content-type: image/png"
+          curl -fsSI http://localhost:3000/opengraph-image | grep -qi "content-type: image/png"
+          curl -fsSI http://localhost:3000/twitter-image | grep -qi "content-type: image/png"
           curl -fsS http://localhost:1337/admin | grep -q "Strapi"
 
       - name: Show container status

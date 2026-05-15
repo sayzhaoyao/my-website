@@ -15,6 +15,7 @@ build/
 # Strapi
 apps/cms/.tmp/
 apps/cms/.cache/
+apps/cms/.strapi-updater.json
 apps/cms/build/
 apps/cms/dist/
 apps/cms/public/uploads/

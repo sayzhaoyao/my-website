@@ -42,6 +42,12 @@ services:
       - ./apps/cms:/opt/app
       - cms_node_modules:/opt/app/node_modules
       - cms_uploads:/opt/app/public/uploads
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"fetch('http://127.0.0.1:1337/admin').then((response) => process.exit(response.ok ? 0 : 1)).catch(() => process.exit(1))\""]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
     depends_on:
       postgres:
         condition: service_healthy
@@ -68,7 +74,7 @@ services:
       - "${WEB_PORT:-3000}:3000"
     depends_on:
       cms:
-        condition: service_started
+        condition: service_healthy
 
   worker:
     build:

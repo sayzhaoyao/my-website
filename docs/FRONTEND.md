@@ -65,6 +65,8 @@ Then re-add local bind mounts for `apps/web` in `docker-compose.yml` or run the 
 - `/manifest.webmanifest`
 - `/icon`
 - `/apple-icon`
+- `/opengraph-image`
+- `/twitter-image`
 - `/robots.txt`
 - `/sitemap.xml`
 - `/feed.xml`
@@ -132,6 +134,7 @@ Implemented:
 - privacy policy,
 - terms of use,
 - default Open Graph and Twitter metadata,
+- generated Open Graph and Twitter preview images,
 - web app manifest,
 - generated browser and Apple icons,
 - robots.txt,
