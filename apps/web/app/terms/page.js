@@ -3,6 +3,9 @@ import Link from "next/link";
 export const metadata = {
   title: "Terms of Use",
   description: "Commerce Toolbase terms of use for software reviews, comparisons, source data, and affiliate links.",
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 export default function TermsPage() {

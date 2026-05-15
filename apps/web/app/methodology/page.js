@@ -3,6 +3,9 @@ import Link from "next/link";
 export const metadata = {
   title: "Review Methodology",
   description: "How Commerce Toolbase scores e-commerce software, verifies sources, and separates automation from editorial judgment.",
+  alternates: {
+    canonical: "/methodology",
+  },
 };
 
 const scoreDimensions = [

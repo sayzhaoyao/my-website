@@ -41,7 +41,6 @@ export const metadata = {
     apple: "/apple-icon",
   },
   alternates: {
-    canonical: "/",
     types: {
       "application/rss+xml": "/feed.xml",
     },

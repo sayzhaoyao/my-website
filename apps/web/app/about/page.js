@@ -4,6 +4,9 @@ import { getSiteUrl, siteName } from "../../lib/site";
 export const metadata = {
   title: "About Commerce Toolbase",
   description: "Learn what Commerce Toolbase is building and how it helps e-commerce teams choose software with source-aware reviews.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 export default function AboutPage() {

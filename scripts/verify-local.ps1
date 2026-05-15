@@ -51,6 +51,32 @@ function Test-Url {
   }
 }
 
+function Test-Canonical {
+  param(
+    [string]$Path,
+    [string]$ExpectedUrl
+  )
+
+  try {
+    $response = Invoke-WebRequest -UseBasicParsing -Uri "$WebUrl$Path" -TimeoutSec 20
+    $content = Convert-ResponseContentToText $response.Content
+
+    if (-not ($content.Contains('rel="canonical"') -or $content.Contains('rel=""canonical""'))) {
+      throw "Canonical tag not found"
+    }
+
+    if (-not $content.Contains($ExpectedUrl)) {
+      throw "Expected canonical URL not found: $ExpectedUrl"
+    }
+
+    Write-Host "[ok] Canonical $Path -> $ExpectedUrl"
+  } catch {
+    $script:failures += 1
+    Write-Host "[fail] Canonical $Path -> $ExpectedUrl"
+    Write-Host "       $($_.Exception.Message)"
+  }
+}
+
 Write-Host "[verify-local] Checking Docker services"
 docker compose ps
 
@@ -69,6 +95,15 @@ Test-Url -Name "Icon" -Url "$WebUrl/icon" -ExpectedContentType "image/png"
 Test-Url -Name "Apple icon" -Url "$WebUrl/apple-icon" -ExpectedContentType "image/png"
 Test-Url -Name "Open Graph image" -Url "$WebUrl/opengraph-image" -ExpectedContentType "image/png"
 Test-Url -Name "Twitter image" -Url "$WebUrl/twitter-image" -ExpectedContentType "image/png"
+
+Write-Host "[verify-local] Checking canonical URLs"
+Test-Canonical -Path "/" -ExpectedUrl $WebUrl
+Test-Canonical -Path "/tools/klaviyo" -ExpectedUrl "$WebUrl/tools/klaviyo"
+Test-Canonical -Path "/categories/email-marketing-tools" -ExpectedUrl "$WebUrl/categories/email-marketing-tools"
+Test-Canonical -Path "/best/best-email-marketing-tools-for-ecommerce" -ExpectedUrl "$WebUrl/best/best-email-marketing-tools-for-ecommerce"
+Test-Canonical -Path "/compare/klaviyo-vs-omnisend" -ExpectedUrl "$WebUrl/compare/klaviyo-vs-omnisend"
+Test-Canonical -Path "/alternatives/klaviyo-alternatives" -ExpectedUrl "$WebUrl/alternatives/klaviyo-alternatives"
+Test-Canonical -Path "/methodology" -ExpectedUrl "$WebUrl/methodology"
 
 Write-Host "[verify-local] Checking CMS endpoint"
 Test-Url -Name "CMS admin" -Url "$CmsUrl/admin" -ExpectedText "Strapi"

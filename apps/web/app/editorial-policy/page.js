@@ -3,6 +3,9 @@ import Link from "next/link";
 export const metadata = {
   title: "Editorial Policy",
   description: "How Commerce Toolbase researches, reviews, updates, and discloses e-commerce software recommendations.",
+  alternates: {
+    canonical: "/editorial-policy",
+  },
 };
 
 export default function EditorialPolicyPage() {

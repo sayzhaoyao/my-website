@@ -3,6 +3,9 @@ import Link from "next/link";
 export const metadata = {
   title: "Affiliate Disclosure",
   description: "Commerce Toolbase affiliate disclosure and how monetization is separated from editorial recommendations.",
+  alternates: {
+    canonical: "/affiliate-disclosure",
+  },
 };
 
 export default function AffiliateDisclosurePage() {

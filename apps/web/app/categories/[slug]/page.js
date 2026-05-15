@@ -57,6 +57,9 @@ export async function generateMetadata({ params }) {
   return {
     title: category.seoTitle || category.name,
     description: category.seoDescription || `Compare tools in ${category.name}.`,
+    alternates: {
+      canonical: `/categories/${category.slug}`,
+    },
   };
 }
 

@@ -3,6 +3,9 @@ import Link from "next/link";
 export const metadata = {
   title: "Contact Commerce Toolbase",
   description: "Contact Commerce Toolbase for corrections, source updates, partnership notes, and software review suggestions.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@commerce-toolbase.example";

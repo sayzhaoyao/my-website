@@ -4,6 +4,9 @@ import { getBestLists } from "../../lib/strapi";
 export const metadata = {
   title: "Best E-commerce Tool Lists",
   description: "Browse curated best-tools lists for Shopify, Amazon, and e-commerce growth workflows.",
+  alternates: {
+    canonical: "/best",
+  },
 };
 
 export default async function BestIndexPage() {

@@ -58,6 +58,16 @@ jobs:
           curl -fsSI http://localhost:3000/twitter-image | grep -qi "content-type: image/png"
           curl -fsS http://localhost:1337/admin | grep -q "Strapi"
 
+      - name: Smoke test canonical URLs
+        shell: bash
+        run: |
+          curl -fsS http://localhost:3000 | grep -q 'rel="canonical".*http://localhost:3000'
+          curl -fsS http://localhost:3000/tools/klaviyo | grep -q 'rel="canonical".*http://localhost:3000/tools/klaviyo'
+          curl -fsS http://localhost:3000/categories/email-marketing-tools | grep -q 'rel="canonical".*http://localhost:3000/categories/email-marketing-tools'
+          curl -fsS http://localhost:3000/best/best-email-marketing-tools-for-ecommerce | grep -q 'rel="canonical".*http://localhost:3000/best/best-email-marketing-tools-for-ecommerce'
+          curl -fsS http://localhost:3000/compare/klaviyo-vs-omnisend | grep -q 'rel="canonical".*http://localhost:3000/compare/klaviyo-vs-omnisend'
+          curl -fsS http://localhost:3000/alternatives/klaviyo-alternatives | grep -q 'rel="canonical".*http://localhost:3000/alternatives/klaviyo-alternatives'
+
       - name: Show container status
         if: always()
         run: docker compose ps

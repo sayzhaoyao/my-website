@@ -4,6 +4,9 @@ import { getAlternatives } from "../../lib/strapi";
 export const metadata = {
   title: "E-commerce Tool Alternatives",
   description: "Find alternatives to popular e-commerce tools by use case, team size, and workflow fit.",
+  alternates: {
+    canonical: "/alternatives",
+  },
 };
 
 export default async function AlternativesIndexPage() {

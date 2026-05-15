@@ -3,6 +3,9 @@ import Link from "next/link";
 export const metadata = {
   title: "Privacy Policy",
   description: "Commerce Toolbase privacy policy for visitors, analytics, affiliate links, and contact requests.",
+  alternates: {
+    canonical: "/privacy-policy",
+  },
 };
 
 export default function PrivacyPolicyPage() {

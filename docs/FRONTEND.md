@@ -136,6 +136,7 @@ Implemented:
 - terms of use,
 - default Open Graph and Twitter metadata,
 - generated Open Graph and Twitter preview images,
+- self-referencing canonical URLs on index and decision pages,
 - BreadcrumbList structured data on decision pages,
 - web app manifest,
 - generated browser and Apple icons,

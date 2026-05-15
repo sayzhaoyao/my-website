@@ -21,6 +21,9 @@ export const metadata = {
     description:
       "Compare e-commerce software, AI tools, marketing platforms, Amazon seller tools, and Shopify apps with decision-focused reviews.",
   },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default async function HomePage() {

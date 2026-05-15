@@ -58,6 +58,9 @@ export async function generateMetadata({ params }) {
   return {
     title: tool.seoTitle || `${tool.name} review and alternatives`,
     description: tool.seoDescription || tool.shortDescription,
+    alternates: {
+      canonical: `/tools/${tool.slug}`,
+    },
   };
 }
 

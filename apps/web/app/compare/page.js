@@ -4,6 +4,9 @@ import { getComparisons } from "../../lib/strapi";
 export const metadata = {
   title: "E-commerce Tool Comparisons",
   description: "Compare popular e-commerce software tools side by side before choosing a stack.",
+  alternates: {
+    canonical: "/compare",
+  },
 };
 
 export default async function CompareIndexPage() {

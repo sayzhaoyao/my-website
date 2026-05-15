@@ -17,6 +17,9 @@ export async function generateMetadata({ params }) {
   return {
     title: list.seoTitle || list.title,
     description: list.seoDescription || list.intro,
+    alternates: {
+      canonical: `/best/${list.slug}`,
+    },
   };
 }
 

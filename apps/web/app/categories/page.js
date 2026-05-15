@@ -4,6 +4,9 @@ import { getCategories, getTools } from "../../lib/strapi";
 export const metadata = {
   title: "E-commerce Software Categories",
   description: "Browse e-commerce software categories for product research, email marketing, SEO, support, analytics, automation, and creative workflows.",
+  alternates: {
+    canonical: "/categories",
+  },
 };
 
 export default async function CategoriesIndexPage() {
