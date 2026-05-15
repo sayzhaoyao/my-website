@@ -327,6 +327,11 @@ h1 {
   font-size: 17px;
 }
 
+.category-hero {
+  display: grid;
+  gap: 4px;
+}
+
 .two-column {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 320px;
@@ -519,6 +524,13 @@ h1 {
 
 .comparison-row strong {
   background: var(--surface-soft);
+}
+
+.comparison-row.table-head strong,
+.comparison-row.table-head span {
+  background: #12355b;
+  color: #fff;
+  font-weight: 900;
 }
 
 @media (max-width: 820px) {
