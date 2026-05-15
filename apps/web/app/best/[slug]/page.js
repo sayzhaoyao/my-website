@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { formatPricing, getAverageScore, getBestListBySlug, getBestLists, listField } from "../../../lib/strapi";
 import { ScoreBadge } from "../../../components/ScoreBadge";
 
@@ -68,6 +69,12 @@ export default async function BestDetailPage({ params }) {
       <header className="page-head">
         <div className="container tool-hero">
           <div>
+            <Breadcrumbs
+              items={[
+                { label: "Best", href: "/best" },
+                { label: list.title, href: `/best/${list.slug}` },
+              ]}
+            />
             <p className="eyebrow">Best tools list</p>
             <h1>{list.title}</h1>
             <p>{list.intro || list.seoDescription}</p>

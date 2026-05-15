@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { formatPricing, getAlternativeBySlug, getAlternatives, listField } from "../../../lib/strapi";
 import { ScoreBadge } from "../../../components/ScoreBadge";
 
@@ -84,6 +85,12 @@ export default async function AlternativeDetailPage({ params }) {
       <header className="page-head">
         <div className="container tool-hero">
           <div>
+            <Breadcrumbs
+              items={[
+                { label: "Alternatives", href: "/alternatives" },
+                { label: alternative.title, href: `/alternatives/${alternative.slug}` },
+              ]}
+            />
             <p className="eyebrow">Alternatives</p>
             <h1>{alternative.title}</h1>
             <p>{alternative.intro || alternative.seoDescription}</p>

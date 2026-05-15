@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { getAverageScore, formatPricing, getComparisonBySlug, getComparisons, listField } from "../../../lib/strapi";
 
 export async function generateStaticParams() {
@@ -70,6 +71,12 @@ export default async function CompareDetailPage({ params }) {
       <header className="page-head">
         <div className="container tool-hero">
           <div>
+            <Breadcrumbs
+              items={[
+                { label: "Compare", href: "/compare" },
+                { label: comparison.title, href: `/compare/${comparison.slug}` },
+              ]}
+            />
             <p className="eyebrow">Comparison</p>
             <h1>{comparison.title}</h1>
             <p>{comparison.summary}</p>

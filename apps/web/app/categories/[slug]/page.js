@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { ToolCard } from "../../../components/ToolCard";
 import { formatPricing, getAverageScore, getCategories, getCategoryBySlug, getToolsByCategorySlug } from "../../../lib/strapi";
 
@@ -91,6 +92,12 @@ export default async function CategoryPage({ params }) {
     <>
       <header className="page-head">
         <div className="container category-hero">
+          <Breadcrumbs
+            items={[
+              { label: "Categories", href: "/categories" },
+              { label: category.name, href: `/categories/${category.slug}` },
+            ]}
+          />
           <p className="eyebrow">Software category</p>
           <h1>{category.name}</h1>
           <p>{intro}</p>

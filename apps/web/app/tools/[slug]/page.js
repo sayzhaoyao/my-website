@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { formatPricing, getAverageScore, getToolBySlug, getTools, listField } from "../../../lib/strapi";
+import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { ScoreBadge } from "../../../components/ScoreBadge";
 import { ScoreList } from "../../../components/ScoreList";
 
@@ -122,6 +123,12 @@ export default async function ToolPage({ params }) {
       <header className="page-head">
         <div className="container tool-hero">
           <div>
+            <Breadcrumbs
+              items={[
+                { label: "Tools", href: "/categories" },
+                { label: tool.name, href: `/tools/${tool.slug}` },
+              ]}
+            />
             <p className="eyebrow">Tool review</p>
             <h1>{tool.name} review</h1>
             <p>{tool.shortDescription}</p>
