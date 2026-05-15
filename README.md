@@ -93,6 +93,7 @@ Read these files in order:
 7. `docs/PROJECT_PLAN.md`
 8. `docs/WEBSITE_STRATEGY.md`
 9. `docs/IMPORT_WORKER.md`
+10. `docs/SOURCE_POLICY.md`
 
 The current recommendation is to build a niche directory and comparison website for AI and software tools used by cross-border e-commerce sellers, using Next.js, Strapi, PostgreSQL, and Docker Compose.
 
