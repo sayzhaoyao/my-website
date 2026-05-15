@@ -1,6 +1,6 @@
-# My Website
+# Commerce Toolbase
 
-This repository contains a local Docker-based website stack for a niche directory and comparison site.
+This repository contains a local Docker-based stack for an SEO-friendly e-commerce software directory, review, comparison, and alternatives website.
 
 ## Current Structure
 
@@ -12,10 +12,15 @@ my-website/
 |   +-- MVP_SPEC.md
 |   +-- LOCAL_DEVELOPMENT.md
 |   +-- CMS_ADMIN.md
+|   +-- CONTENT_PLAN.md
+|   +-- DEPLOYMENT.md
 |   +-- FRONTEND.md
+|   +-- IMPORT_WORKER.md
+|   +-- LAUNCH_CHECKLIST.md
 |   +-- PROJECT_PLAN.md
 |   +-- SEED_DATA.md
 |   +-- SITE_DIRECTION.md
+|   +-- SOURCE_POLICY.md
 |   +-- WEBSITE_STRATEGY.md
 |-- apps/
 |   +-- cms/
@@ -37,7 +42,7 @@ my-website/
 
 ## Local App
 
-The local app includes Docker Compose, Strapi, PostgreSQL, and a Next.js frontend.
+The local app includes Docker Compose, Strapi, PostgreSQL, a Next.js frontend, and worker scripts for safe content collection/review workflows.
 
 To start the local stack after Docker Desktop is running:
 
@@ -52,12 +57,27 @@ Website: http://localhost:3000
 CMS:     http://localhost:1337/admin
 ```
 
+Important public routes include:
+
+```text
+/categories
+/tools/[slug]
+/best
+/compare
+/alternatives
+/sitemap.xml
+/robots.txt
+/feed.xml
+/manifest.webmanifest
+```
+
 ## Services
 
 ```text
 Frontend: Next.js on port 3000
 CMS:      Strapi on port 1337
 Database: PostgreSQL on port 5432
+Worker:   Node.js scripts through the Docker Compose tools profile
 ```
 
 ## Content Review Pipeline
@@ -86,15 +106,17 @@ Read these files in order:
 
 1. `docs/SITE_DIRECTION.md`
 2. `docs/MVP_SPEC.md`
-3. `docs/LOCAL_DEVELOPMENT.md`
-4. `docs/CMS_ADMIN.md`
-5. `docs/FRONTEND.md`
-6. `docs/SEED_DATA.md`
-7. `docs/PROJECT_PLAN.md`
-8. `docs/WEBSITE_STRATEGY.md`
-9. `docs/IMPORT_WORKER.md`
-10. `docs/SOURCE_POLICY.md`
+3. `docs/CONTENT_PLAN.md`
+4. `docs/LOCAL_DEVELOPMENT.md`
+5. `docs/CMS_ADMIN.md`
+6. `docs/FRONTEND.md`
+7. `docs/IMPORT_WORKER.md`
+8. `docs/SOURCE_POLICY.md`
+9. `docs/LAUNCH_CHECKLIST.md`
+10. `docs/DEPLOYMENT.md`
+11. `docs/PROJECT_PLAN.md`
+12. `docs/WEBSITE_STRATEGY.md`
 
 The current recommendation is to build a niche directory and comparison website for AI and software tools used by cross-border e-commerce sellers, using Next.js, Strapi, PostgreSQL, and Docker Compose.
 
-The next implementation milestone is to connect safe external sources to the import worker, review imported drafts in Strapi, and improve public pages with richer editorial content.
+The next implementation milestone is to polish the first content cluster, configure production hosting, add analytics, and prepare affiliate links only after partner approval and manual editorial review.
