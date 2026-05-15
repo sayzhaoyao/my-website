@@ -17,6 +17,18 @@ export default async function sitemap() {
       changeFrequency: "daily",
       priority: 1,
     },
+    {
+      url: `${siteUrl}/editorial-policy`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.4,
+    },
+    {
+      url: `${siteUrl}/affiliate-disclosure`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.4,
+    },
     ...categories.map((category) => ({
       url: `${siteUrl}/categories/${category.slug}`,
       lastModified: category.updatedAt ? new Date(category.updatedAt) : new Date(),

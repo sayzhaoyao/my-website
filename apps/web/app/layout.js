@@ -32,8 +32,12 @@ export default function RootLayout({ children }) {
           </header>
           <main>{children}</main>
           <footer className="footer">
-            <div className="container">
+            <div className="container footer-inner">
               <p>Commerce Toolbase tracks e-commerce tools with source-aware, review-ready content.</p>
+              <nav className="footer-links" aria-label="Footer navigation">
+                <Link href="/editorial-policy">Editorial Policy</Link>
+                <Link href="/affiliate-disclosure">Affiliate Disclosure</Link>
+              </nav>
             </div>
           </footer>
         </div>
