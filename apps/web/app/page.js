@@ -46,11 +46,26 @@ export default async function HomePage() {
   ];
   const structuredData = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Commerce Toolbase",
-    url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
-    description: metadata.description,
-    about: "E-commerce software reviews and comparisons",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}#organization`,
+        name: "Commerce Toolbase",
+        url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+        description: "Source-aware e-commerce software reviews, comparisons, rankings, and alternatives.",
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}#website`,
+        name: "Commerce Toolbase",
+        url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+        description: metadata.description,
+        about: "E-commerce software reviews and comparisons",
+        publisher: {
+          "@id": `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}#organization`,
+        },
+      },
+    ],
   };
 
   return (
