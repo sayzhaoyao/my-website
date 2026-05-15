@@ -25,11 +25,40 @@ If the browser still shows the old interface, log out and log back in, then hard
 
 ## Custom Content Types
 
-The content type display names are localized for easier editing:
+Main content types:
 
-- `工具`
-- `分类`
-- `来源`
-- `导入日志`
+- `Tool`
+- `Category`
+- `Source`
+- `Import Log`
+- `Review Queue`
 
 API field names remain in English to keep frontend development and integrations maintainable.
+
+## Review Queue Workflow
+
+The Review Queue is for internal editorial checks created by the collection worker.
+
+Open items usually come from:
+
+- changed canonical or final URLs,
+- changed pricing pages,
+- changed changelog or product-update pages,
+- changed page titles, descriptions, or H1 text,
+- newly collected tools.
+
+Priority meaning:
+
+- `high`: URL identity changed or a new/removed tool appears. Check this first.
+- `medium`: pricing or changelog page changed. Check pricing, plan limits, feature updates, and dated claims.
+- `low`: metadata changed. Usually safe to review after high and medium items.
+
+Suggested handling:
+
+1. Open the related tool page and official source URLs.
+2. Confirm whether public content needs an update.
+3. Update the Tool, Best List, Comparison, or Alternatives page content if needed.
+4. Change `itemStatus` to `resolved` when handled.
+5. Use `ignored` only when the change is known noise.
+
+The Review Queue is intentionally not public. It is for admin users and worker API tokens only.
