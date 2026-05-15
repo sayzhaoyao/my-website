@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
                 <span>Commerce Toolbase</span>
               </Link>
               <nav className="nav" aria-label="Primary navigation">
-                <Link href="/#categories">Categories</Link>
+                <Link href="/categories">Categories</Link>
                 <Link href="/best">Best</Link>
                 <Link href="/compare">Compare</Link>
                 <Link href="/alternatives">Alternatives</Link>
