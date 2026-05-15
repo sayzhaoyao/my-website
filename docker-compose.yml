@@ -62,6 +62,7 @@ services:
       NEXT_TELEMETRY_DISABLED: "1"
       STRAPI_INTERNAL_URL: ${STRAPI_INTERNAL_URL:-http://cms:1337}
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+      NEXT_PUBLIC_PLAUSIBLE_DOMAIN: ${NEXT_PUBLIC_PLAUSIBLE_DOMAIN:-}
     ports:
       - "${WEB_PORT:-3000}:3000"
     depends_on:

@@ -1,9 +1,11 @@
 import Link from "next/link";
+import Script from "next/script";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 const siteName = "Commerce Toolbase";
 const defaultDescription = "A curated directory of AI and software tools for e-commerce sellers.";
+const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || "";
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
@@ -42,6 +44,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        {plausibleDomain ? (
+          <Script
+            defer
+            data-domain={plausibleDomain}
+            src="https://plausible.io/js/script.js"
+            strategy="afterInteractive"
+          />
+        ) : null}
         <div className="site-shell">
           <header className="site-header">
             <div className="container header-inner">

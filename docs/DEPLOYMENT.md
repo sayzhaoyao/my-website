@@ -30,9 +30,12 @@ Set these values in the production environment. Do not commit real secrets.
 NEXT_PUBLIC_SITE_URL=https://your-domain.example
 STRAPI_INTERNAL_URL=https://cms.your-domain.example
 NEXT_TELEMETRY_DISABLED=1
+NEXT_PUBLIC_PLAUSIBLE_DOMAIN=your-domain.example
 ```
 
 If the frontend host cannot reach the CMS through an internal network, `STRAPI_INTERNAL_URL` should be the HTTPS CMS URL.
+
+`NEXT_PUBLIC_PLAUSIBLE_DOMAIN` is optional. Leave it empty until Plausible or a compatible analytics setup is ready.
 
 ### Strapi
 

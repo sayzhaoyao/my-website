@@ -48,7 +48,7 @@ This checklist is for moving Commerce Toolbase from local Docker testing to a pu
 
 ### Analytics And Operations
 
-- Add privacy-conscious analytics such as Plausible, Umami, or a configured self-hosted option.
+- Add privacy-conscious analytics such as Plausible, Umami, or a configured self-hosted option. For Plausible, set `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` in the frontend environment.
 - Add uptime monitoring for the website and CMS.
 - Schedule weekly source collection and review queue checks.
 - Keep backups for PostgreSQL before production use.
