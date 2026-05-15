@@ -1,4 +1,5 @@
 import { getAlternatives, getBestLists, getCategories, getComparisons, getTools } from "../../lib/strapi";
+import { getSiteUrl } from "../../lib/site";
 
 function escapeXml(value) {
   return String(value || "")
@@ -21,7 +22,7 @@ function itemXml(item) {
 }
 
 export async function GET() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = getSiteUrl();
   const [categories, tools, bestLists, comparisons, alternatives] = await Promise.all([
     getCategories(),
     getTools(),

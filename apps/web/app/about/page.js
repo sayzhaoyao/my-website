@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getSiteUrl, siteName } from "../../lib/site";
 
 export const metadata = {
   title: "About Commerce Toolbase",
@@ -6,6 +7,7 @@ export const metadata = {
 };
 
 export default function AboutPage() {
+  const siteUrl = getSiteUrl();
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
@@ -13,8 +15,8 @@ export default function AboutPage() {
     description: metadata.description,
     about: {
       "@type": "Organization",
-      name: "Commerce Toolbase",
-      url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+      name: siteName,
+      url: siteUrl,
     },
   };
 

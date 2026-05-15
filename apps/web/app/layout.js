@@ -1,10 +1,9 @@
 import Link from "next/link";
 import Script from "next/script";
+import { defaultDescription, getSiteUrl, siteName } from "../lib/site";
 import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-const siteName = "Commerce Toolbase";
-const defaultDescription = "A curated directory of AI and software tools for e-commerce sellers.";
+const siteUrl = getSiteUrl();
 const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN || "";
 
 export const metadata = {

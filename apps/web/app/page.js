@@ -1,5 +1,6 @@
 import { CategoryCard } from "../components/CategoryCard";
 import { ToolCard } from "../components/ToolCard";
+import { getSiteUrl, siteName } from "../lib/site";
 import { getAlternatives, getAverageScore, getBestLists, getCategories, getComparisons, getTools } from "../lib/strapi";
 
 export const metadata = {
@@ -23,6 +24,7 @@ export const metadata = {
 };
 
 export default async function HomePage() {
+  const siteUrl = getSiteUrl();
   const [categories, tools, bestLists, comparisons, alternatives] = await Promise.all([
     getCategories(),
     getTools(),
@@ -63,20 +65,20 @@ export default async function HomePage() {
     "@graph": [
       {
         "@type": "Organization",
-        "@id": `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}#organization`,
-        name: "Commerce Toolbase",
-        url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+        "@id": `${siteUrl}#organization`,
+        name: siteName,
+        url: siteUrl,
         description: "Source-aware e-commerce software reviews, comparisons, rankings, and alternatives.",
       },
       {
         "@type": "WebSite",
-        "@id": `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}#website`,
-        name: "Commerce Toolbase",
-        url: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
+        "@id": `${siteUrl}#website`,
+        name: siteName,
+        url: siteUrl,
         description: metadata.description,
         about: "E-commerce software reviews and comparisons",
         publisher: {
-          "@id": `${process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}#organization`,
+          "@id": `${siteUrl}#organization`,
         },
       },
     ],

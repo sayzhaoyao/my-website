@@ -1,4 +1,5 @@
 import { getAlternatives, getBestLists, getCategories, getComparisons, getTools } from "../lib/strapi";
+import { getSiteUrl } from "../lib/site";
 
 const staticPages = [
   { path: "/about", changeFrequency: "monthly", priority: 0.4 },
@@ -16,7 +17,7 @@ const staticPages = [
 ];
 
 export default async function sitemap() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = getSiteUrl();
   const [categories, tools, bestLists, comparisons, alternatives] = await Promise.all([
     getCategories(),
     getTools(),
