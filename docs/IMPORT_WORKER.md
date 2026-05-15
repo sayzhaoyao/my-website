@@ -68,6 +68,24 @@ Review priority:
 - `low`: other metadata changed.
 - `none`: no differences.
 
+## Sync Review Queue
+
+After a review report is generated, sync actionable items into the CMS review queue:
+
+```powershell
+docker compose --profile tools run --rm worker npm run sync:review-queue -- --file data/generated/url-metadata.review-report.json --dry-run
+```
+
+Write to Strapi after checking the dry-run:
+
+```powershell
+docker compose --profile tools run --rm worker npm run sync:review-queue -- --file data/generated/url-metadata.review-report.json --write
+```
+
+The sync uses `queueKey` to update existing queue items instead of creating duplicates. Resolved or ignored items are reopened if the same change appears again in a later report.
+
+The review queue is an internal CMS collection and is not granted public read access.
+
 If it looks good, write it to Strapi:
 
 ```powershell

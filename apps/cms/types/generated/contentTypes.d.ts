@@ -639,6 +639,60 @@ export interface ApiImportLogImportLog extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiReviewQueueReviewQueue extends Struct.CollectionTypeSchema {
+  collectionName: 'review_queues';
+  info: {
+    description: 'Internal editorial queue for collected content changes that require human review.';
+    displayName: 'Review Queue';
+    pluralName: 'review-queues';
+    singularName: 'review-queue';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    changes: Schema.Attribute.JSON;
+    changeStatus: Schema.Attribute.Enumeration<
+      ['added', 'changed', 'removed']
+    > &
+      Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    firstSeenAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    itemStatus: Schema.Attribute.Enumeration<
+      ['open', 'in_review', 'resolved', 'ignored']
+    > &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'open'>;
+    lastSeenAt: Schema.Attribute.DateTime & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::review-queue.review-queue'
+    > &
+      Schema.Attribute.Private;
+    notes: Schema.Attribute.Text;
+    priority: Schema.Attribute.Enumeration<['high', 'medium', 'low']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'low'>;
+    publishedAt: Schema.Attribute.DateTime;
+    queueKey: Schema.Attribute.UID &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    reportSummary: Schema.Attribute.JSON;
+    resolvedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    tool: Schema.Attribute.Relation<'manyToOne', 'api::tool.tool'>;
+    toolName: Schema.Attribute.String;
+    toolSlug: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    websiteUrl: Schema.Attribute.String;
+  };
+}
+
 export interface ApiSourceSource extends Struct.CollectionTypeSchema {
   collectionName: 'sources';
   info: {
@@ -1324,6 +1378,7 @@ declare module '@strapi/strapi' {
       'api::category.category': ApiCategoryCategory;
       'api::comparison.comparison': ApiComparisonComparison;
       'api::import-log.import-log': ApiImportLogImportLog;
+      'api::review-queue.review-queue': ApiReviewQueueReviewQueue;
       'api::source.source': ApiSourceSource;
       'api::tool.tool': ApiToolTool;
       'plugin::content-releases.release': PluginContentReleasesRelease;

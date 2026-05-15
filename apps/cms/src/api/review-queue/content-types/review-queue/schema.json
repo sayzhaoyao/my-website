@@ -1,0 +1,75 @@
+{
+  "kind": "collectionType",
+  "collectionName": "review_queues",
+  "info": {
+    "singularName": "review-queue",
+    "pluralName": "review-queues",
+    "displayName": "Review Queue",
+    "description": "Internal editorial queue for collected content changes that require human review."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "queueKey": {
+      "type": "uid",
+      "required": true,
+      "unique": true
+    },
+    "itemStatus": {
+      "type": "enumeration",
+      "enum": ["open", "in_review", "resolved", "ignored"],
+      "default": "open",
+      "required": true
+    },
+    "priority": {
+      "type": "enumeration",
+      "enum": ["high", "medium", "low"],
+      "default": "low",
+      "required": true
+    },
+    "changeStatus": {
+      "type": "enumeration",
+      "enum": ["added", "changed", "removed"],
+      "required": true
+    },
+    "toolSlug": {
+      "type": "string"
+    },
+    "toolName": {
+      "type": "string"
+    },
+    "websiteUrl": {
+      "type": "string"
+    },
+    "changes": {
+      "type": "json"
+    },
+    "reportSummary": {
+      "type": "json"
+    },
+    "firstSeenAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "lastSeenAt": {
+      "type": "datetime",
+      "required": true
+    },
+    "resolvedAt": {
+      "type": "datetime"
+    },
+    "notes": {
+      "type": "text"
+    },
+    "tool": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::tool.tool"
+    }
+  }
+}
