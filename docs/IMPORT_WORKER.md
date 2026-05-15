@@ -50,6 +50,19 @@ Then run:
 docker compose --profile tools run --rm worker npm run import:tools -- --file data/tools.sample.json --write
 ```
 
+The write token should allow:
+
+- `Tool`: find, findOne, create, update
+- `Category`: find, findOne
+- `Source`: find, findOne, create, update
+- `Import Log`: create, update
+
+Optional source metadata:
+
+```powershell
+docker compose --profile tools run --rm worker npm run import:tools -- --file data/tools.sample.json --write --source-name "Manual test import" --source-url "file://tools.sample.json"
+```
+
 ## Safety Rules
 
 - Imports should default to `editorialStatus: review`.
@@ -57,6 +70,16 @@ docker compose --profile tools run --rm worker npm run import:tools -- --file da
 - Keep source URLs on every imported record.
 - Use dry-run before every new source format.
 - Review scores manually before publishing.
+- Every write run creates an import log.
+
+## Duplicate Detection
+
+The worker currently checks for existing tools in this order:
+
+1. matching `slug`,
+2. matching `websiteUrl`.
+
+If an existing record is found, the worker updates it instead of creating a duplicate.
 
 ## Input Format
 
@@ -91,6 +114,6 @@ apps/worker/data/tools.sample.json
 ## Next Worker Milestones
 
 1. Add source-specific collectors that output the same JSON format.
-2. Add import logs in Strapi for every run.
-3. Add duplicate detection by official URL and slug.
+2. Add write verification against a local Strapi API token.
+3. Add richer import logs for skipped fields and source confidence.
 4. Add scheduled execution only after manual imports are reliable.

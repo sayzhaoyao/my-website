@@ -18,6 +18,9 @@ function parseArgs(argv) {
     file: "data/tools.sample.json",
     dryRun: true,
     publish: false,
+    sourceName: "Local JSON Import",
+    sourceUrl: "",
+    sourceType: "manual_submission",
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -31,6 +34,15 @@ function parseArgs(argv) {
       options.dryRun = false;
     } else if (arg === "--publish") {
       options.publish = true;
+    } else if (arg === "--source-name") {
+      options.sourceName = argv[index + 1];
+      index += 1;
+    } else if (arg === "--source-url") {
+      options.sourceUrl = argv[index + 1];
+      index += 1;
+    } else if (arg === "--source-type") {
+      options.sourceType = argv[index + 1];
+      index += 1;
     }
   }
 
@@ -177,6 +189,76 @@ async function findDocumentBySlug(client, collection, slug) {
   return body?.data?.[0] || null;
 }
 
+async function findFirstByField(client, collection, field, value) {
+  if (!value) {
+    return null;
+  }
+
+  const query = `/api/${collection}?filters[${field}][$eq]=${encodeURIComponent(value)}&status=draft`;
+  const body = await client.request(query);
+  return body?.data?.[0] || null;
+}
+
+async function upsertSource(client, options) {
+  const sourceUrl = options.sourceUrl || `file://${options.file}`;
+  const existing = await findFirstByField(client, "sources", "url", sourceUrl);
+  const payload = {
+    data: {
+      name: options.sourceName,
+      sourceType: options.sourceType,
+      url: sourceUrl,
+      permissionNotes: "Local worker import source. Review before using automated publishing.",
+      fetchFrequency: "manual",
+      lastCheckedAt: new Date().toISOString(),
+      status: "active",
+    },
+  };
+
+  if (existing?.documentId) {
+    await client.request(`/api/sources/${existing.documentId}`, {
+      method: "PUT",
+      body: JSON.stringify(payload),
+    });
+    return existing.documentId;
+  }
+
+  const body = await client.request("/api/sources", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  return body?.data?.documentId;
+}
+
+async function createImportLog(client, options, sourceDocumentId) {
+  const payload = {
+    data: {
+      runStatus: "started",
+      startedAt: new Date().toISOString(),
+      recordsCreated: 0,
+      recordsUpdated: 0,
+      notes: `Import started from ${options.file}.`,
+      ...(sourceDocumentId ? { source: sourceDocumentId } : {}),
+    },
+  };
+
+  const body = await client.request("/api/import-logs", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+  return body?.data?.documentId;
+}
+
+async function updateImportLog(client, documentId, data) {
+  if (!documentId) {
+    return;
+  }
+
+  await client.request(`/api/import-logs/${documentId}`, {
+    method: "PUT",
+    body: JSON.stringify({ data }),
+  });
+}
+
 async function resolveCategories(client, categorySlugs) {
   const categories = [];
   const missing = [];
@@ -193,8 +275,22 @@ async function resolveCategories(client, categorySlugs) {
   return { categories, missing };
 }
 
+async function findExistingTool(client, tool) {
+  const bySlug = await findDocumentBySlug(client, "tools", tool.data.slug);
+  if (bySlug) {
+    return { record: bySlug, matchedBy: "slug" };
+  }
+
+  const byWebsiteUrl = await findFirstByField(client, "tools", "websiteUrl", tool.data.websiteUrl);
+  if (byWebsiteUrl) {
+    return { record: byWebsiteUrl, matchedBy: "websiteUrl" };
+  }
+
+  return { record: null, matchedBy: null };
+}
+
 async function upsertTool(client, tool, publish) {
-  const existing = await findDocumentBySlug(client, "tools", tool.data.slug);
+  const existing = await findExistingTool(client, tool);
   const payload = {
     data: tool.data,
   };
@@ -203,19 +299,23 @@ async function upsertTool(client, tool, publish) {
     payload.data.categories = tool.categoryDocumentIds;
   }
 
-  if (existing?.documentId) {
-    await client.request(`/api/tools/${existing.documentId}`, {
+  if (tool.sourceDocumentId) {
+    payload.data.sources = [tool.sourceDocumentId];
+  }
+
+  if (existing.record?.documentId) {
+    await client.request(`/api/tools/${existing.record.documentId}`, {
       method: "PUT",
       body: JSON.stringify(payload),
     });
-    return "updated";
+    return { action: "updated", matchedBy: existing.matchedBy };
   }
 
   await client.request(`/api/tools${publish ? "?status=published" : ""}`, {
     method: "POST",
     body: JSON.stringify(payload),
   });
-  return "created";
+  return { action: "created", matchedBy: null };
 }
 
 async function main() {
@@ -245,6 +345,7 @@ async function main() {
     for (const record of normalized) {
       console.log(`[dry-run] ${record.data.slug}: ready for import as ${record.data.editorialStatus}.`);
     }
+    console.log(`[dry-run] source: ${options.sourceName} (${options.sourceUrl || `file://${options.file}`})`);
     console.log("Dry run complete. Re-run with --write and STRAPI_API_TOKEN to write to Strapi.");
     return;
   }
@@ -254,26 +355,50 @@ async function main() {
   }
 
   const client = createClient({ baseUrl, token });
-  const summary = { created: 0, updated: 0, missingCategories: new Set() };
+  const summary = { created: 0, updated: 0, missingCategories: new Set(), errors: [] };
+  let importLogDocumentId = null;
+
+  const sourceDocumentId = await upsertSource(client, options);
+  importLogDocumentId = await createImportLog(client, options, sourceDocumentId);
 
   for (const record of normalized) {
-    const { categories, missing } = await resolveCategories(client, record.categorySlugs);
-    for (const slug of missing) {
-      summary.missingCategories.add(slug);
-    }
+    try {
+      const { categories, missing } = await resolveCategories(client, record.categorySlugs);
+      for (const slug of missing) {
+        summary.missingCategories.add(slug);
+      }
 
-    const result = await upsertTool(
-      client,
-      { ...record, categoryDocumentIds: categories },
-      options.publish,
-    );
-    summary[result] += 1;
-    console.log(`${result}: ${record.data.slug}`);
+      const result = await upsertTool(
+        client,
+        { ...record, categoryDocumentIds: categories, sourceDocumentId },
+        options.publish,
+      );
+      summary[result.action] += 1;
+      console.log(`${result.action}: ${record.data.slug}${result.matchedBy ? ` (matched by ${result.matchedBy})` : ""}`);
+    } catch (error) {
+      summary.errors.push({ slug: record.data.slug, message: error.message });
+      console.error(`failed: ${record.data.slug}: ${error.message}`);
+    }
   }
 
   if (summary.missingCategories.size > 0) {
     console.warn(`Missing categories: ${Array.from(summary.missingCategories).join(", ")}`);
   }
+
+  const runStatus = summary.errors.length > 0
+    ? summary.created > 0 || summary.updated > 0
+      ? "partial_success"
+      : "failed"
+    : "success";
+
+  await updateImportLog(client, importLogDocumentId, {
+    runStatus,
+    finishedAt: new Date().toISOString(),
+    recordsCreated: summary.created,
+    recordsUpdated: summary.updated,
+    errors: summary.errors,
+    notes: `Import finished from ${options.file}. Missing categories: ${Array.from(summary.missingCategories).join(", ") || "none"}.`,
+  });
 
   console.log(`Import complete. Created: ${summary.created}. Updated: ${summary.updated}.`);
 }
