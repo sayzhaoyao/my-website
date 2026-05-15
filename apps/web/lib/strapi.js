@@ -25,7 +25,9 @@ export async function getTools() {
 }
 
 export async function getToolBySlug(slug) {
-  const payload = await fetchFromStrapi(`/api/tools?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=categories`);
+  const payload = await fetchFromStrapi(
+    `/api/tools?filters[slug][$eq]=${encodeURIComponent(slug)}&populate[0]=categories&populate[1]=sources`
+  );
   return payload.data?.[0] || null;
 }
 

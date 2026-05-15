@@ -83,6 +83,7 @@ The CMS bootstrap grants Public role read access to:
 The frontend is built around decision pages rather than a simple link directory:
 
 - Tool pages show overview, pricing, pros and cons, categories, recommended users, users who should skip the tool, and a six-part decision score.
+- Tool review pages include a quick verdict, conversion CTA, affiliate disclosure area, review notes, FAQ, sources, and SoftwareApplication structured data.
 - Best Tools pages rank related tools and surface each tool's average score.
 - Comparison pages explain the recommendation between two tools.
 - Alternatives pages connect one primary tool to replacement options.
