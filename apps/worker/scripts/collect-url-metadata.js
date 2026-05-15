@@ -141,22 +141,50 @@ function uniqueStrings(values) {
   return Array.from(new Set(values.filter(Boolean).map((value) => String(value).trim()).filter(Boolean)));
 }
 
-function createReviewNotes(source, metadata, fetchInfo) {
+async function collectPageSnapshot(pageType, url, timeoutMs) {
+  const fetchInfo = await fetchHtml(url, timeoutMs);
+  const metadata = extractMetadata(fetchInfo.html);
+
+  return {
+    pageType,
+    sourceUrl: url,
+    finalUrl: fetchInfo.finalUrl || url,
+    canonicalUrl: metadata.canonicalUrl || "",
+    httpStatus: fetchInfo.status,
+    contentType: fetchInfo.contentType,
+    lastModified: fetchInfo.lastModified,
+    pageTitle: metadata.title,
+    pageDescription: metadata.description,
+    pageH1: metadata.h1,
+  };
+}
+
+function createReviewNotes(source, primarySnapshot, relatedSnapshots) {
   const notes = [
     "Review generated metadata before publishing.",
     "Confirm pricing, plan limits, feature claims, and affiliate terms manually.",
   ];
 
-  if (!metadata.description) {
+  if (!primarySnapshot.pageDescription) {
     notes.push("No meta description was found; shortDescription may need manual writing.");
   }
 
-  if (!metadata.h1) {
+  if (!primarySnapshot.pageH1) {
     notes.push("No H1 was found; verify the page is the correct official product page.");
   }
 
-  if (fetchInfo.contentType && !fetchInfo.contentType.includes("text/html")) {
-    notes.push(`Unexpected content type: ${fetchInfo.contentType}.`);
+  for (const snapshot of relatedSnapshots) {
+    if (snapshot.contentType && !snapshot.contentType.includes("text/html")) {
+      notes.push(`Unexpected content type for ${snapshot.pageType}: ${snapshot.contentType}.`);
+    }
+  }
+
+  if (source.pricingUrl && !relatedSnapshots.some((snapshot) => snapshot.pageType === "pricing")) {
+    notes.push("Pricing URL was configured but could not be collected.");
+  }
+
+  if (source.changelogUrl && !relatedSnapshots.some((snapshot) => snapshot.pageType === "changelog")) {
+    notes.push("Changelog URL was configured but could not be collected.");
   }
 
   if (source.reviewNotes) {
@@ -166,13 +194,13 @@ function createReviewNotes(source, metadata, fetchInfo) {
   return uniqueStrings(notes);
 }
 
-function toToolRecord(source, metadata, fetchInfo, options) {
-  const name = source.name || metadata.h1 || metadata.title;
+function toToolRecord(source, primarySnapshot, relatedSnapshots, options) {
+  const name = source.name || primarySnapshot.pageH1 || primarySnapshot.pageTitle;
   const cleanName = String(name || "").trim();
-  const description = source.shortDescription || metadata.description || metadata.h1 || metadata.title;
+  const description = source.shortDescription || primarySnapshot.pageDescription || primarySnapshot.pageH1 || primarySnapshot.pageTitle;
   const categorySlugs = source.categorySlugs || (options.categorySlug ? [options.categorySlug] : []);
   const fetchedAt = new Date().toISOString();
-  const canonicalOrFinalUrl = metadata.canonicalUrl || fetchInfo.finalUrl || source.url;
+  const canonicalOrFinalUrl = primarySnapshot.canonicalUrl || primarySnapshot.finalUrl || source.url;
   const sourceUrls = uniqueStrings([
     source.url,
     canonicalOrFinalUrl,
@@ -189,7 +217,7 @@ function toToolRecord(source, metadata, fetchInfo, options) {
     affiliateUrl: source.affiliateUrl || undefined,
     affiliateDisclosure: source.affiliateDisclosure || undefined,
     shortDescription: String(description || "Imported tool metadata pending editorial review.").slice(0, 500),
-    longDescription: source.longDescription || metadata.description || "",
+    longDescription: source.longDescription || primarySnapshot.pageDescription || "",
     pricingModel: source.pricingModel || "unknown",
     startingPrice: source.startingPrice,
     freePlanAvailable: Boolean(source.freePlanAvailable),
@@ -202,21 +230,23 @@ function toToolRecord(source, metadata, fetchInfo, options) {
     notRecommendedFor: source.notRecommendedFor || [],
     sourceUrls,
     categorySlugs,
-    seoTitle: source.seoTitle || metadata.title || cleanName,
-    seoDescription: source.seoDescription || metadata.description || description,
+    seoTitle: source.seoTitle || primarySnapshot.pageTitle || cleanName,
+    seoDescription: source.seoDescription || primarySnapshot.pageDescription || description,
     _collection: {
       collector: "url-metadata",
       collectedAt: fetchedAt,
       sourceUrl: source.url,
-      finalUrl: fetchInfo.finalUrl || source.url,
-      canonicalUrl: metadata.canonicalUrl || "",
-      httpStatus: fetchInfo.status,
-      contentType: fetchInfo.contentType,
-      lastModified: fetchInfo.lastModified,
-      pageTitle: metadata.title,
-      pageH1: metadata.h1,
+      finalUrl: primarySnapshot.finalUrl || source.url,
+      canonicalUrl: primarySnapshot.canonicalUrl || "",
+      httpStatus: primarySnapshot.httpStatus,
+      contentType: primarySnapshot.contentType,
+      lastModified: primarySnapshot.lastModified,
+      pageTitle: primarySnapshot.pageTitle,
+      pageDescription: primarySnapshot.pageDescription,
+      pageH1: primarySnapshot.pageH1,
+      relatedPages: relatedSnapshots.filter((snapshot) => snapshot.pageType !== "main"),
       reviewRequired: true,
-      reviewNotes: createReviewNotes(source, metadata, fetchInfo),
+      reviewNotes: createReviewNotes(source, primarySnapshot, relatedSnapshots),
       skippedFields: [
         "pricing details",
         "feature claims",
@@ -225,6 +255,41 @@ function toToolRecord(source, metadata, fetchInfo, options) {
         "affiliate status",
       ],
     },
+  };
+}
+
+async function collectSource(source, options) {
+  const snapshots = [];
+  const pageFailures = [];
+  const pages = [
+    { pageType: "main", url: source.url },
+    ...(source.pricingUrl ? [{ pageType: "pricing", url: source.pricingUrl }] : []),
+    ...(source.changelogUrl ? [{ pageType: "changelog", url: source.changelogUrl }] : []),
+  ];
+
+  for (const page of pages) {
+    try {
+      snapshots.push(await collectPageSnapshot(page.pageType, page.url, options.timeoutMs));
+    } catch (error) {
+      pageFailures.push({
+        name: source.name || source.url,
+        pageType: page.pageType,
+        url: page.url,
+        collectedAt: new Date().toISOString(),
+        error: error.message,
+      });
+    }
+  }
+
+  const primarySnapshot = snapshots.find((snapshot) => snapshot.pageType === "main");
+  if (!primarySnapshot) {
+    const mainFailure = pageFailures.find((failure) => failure.pageType === "main");
+    throw new Error(mainFailure?.error || "main URL could not be collected");
+  }
+
+  return {
+    record: toToolRecord(source, primarySnapshot, snapshots, options),
+    failures: pageFailures,
   };
 }
 
@@ -247,9 +312,9 @@ async function main() {
     }
 
     try {
-      const fetchInfo = await fetchHtml(source.url, options.timeoutMs);
-      const metadata = extractMetadata(fetchInfo.html);
-      records.push(toToolRecord(source, metadata, fetchInfo, options));
+      const result = await collectSource(source, options);
+      records.push(result.record);
+      failures.push(...result.failures);
       console.log(`collected: ${source.name || source.url}`);
     } catch (error) {
       failures.push({

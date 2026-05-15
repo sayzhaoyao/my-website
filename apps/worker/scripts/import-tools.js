@@ -352,6 +352,12 @@ async function main() {
       if (record.collection?.lastModified) {
         console.log(`  source last-modified: ${record.collection.lastModified}`);
       }
+      if (Array.isArray(record.collection?.relatedPages) && record.collection.relatedPages.length > 0) {
+        for (const page of record.collection.relatedPages) {
+          const lastModified = page.lastModified ? `, last-modified: ${page.lastModified}` : "";
+          console.log(`  ${page.pageType}: ${page.finalUrl || page.sourceUrl}${lastModified}`);
+        }
+      }
       if (Array.isArray(record.collection?.reviewNotes) && record.collection.reviewNotes.length > 0) {
         for (const note of record.collection.reviewNotes.slice(0, 4)) {
           console.log(`  review note: ${note}`);

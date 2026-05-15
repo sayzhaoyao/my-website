@@ -70,9 +70,28 @@ Important `_collection` fields:
 - `lastModified`
 - `pageTitle`
 - `pageH1`
+- `relatedPages`
 - `reviewRequired`
 - `reviewNotes`
 - `skippedFields`
+
+`relatedPages` contains optional snapshots for configured supporting URLs:
+
+- `pricingUrl` becomes a `pricing` page snapshot.
+- `changelogUrl` becomes a `changelog` page snapshot.
+
+Each supporting snapshot stores:
+
+- `pageType`
+- `sourceUrl`
+- `finalUrl`
+- `canonicalUrl`
+- `httpStatus`
+- `contentType`
+- `lastModified`
+- `pageTitle`
+- `pageDescription`
+- `pageH1`
 
 If any URL fails, the collector writes a sibling failure file next to the output:
 
