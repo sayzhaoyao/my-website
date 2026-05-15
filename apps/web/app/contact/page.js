@@ -5,8 +5,9 @@ export const metadata = {
   description: "Contact Commerce Toolbase for corrections, source updates, partnership notes, and software review suggestions.",
 };
 
+const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@commerce-toolbase.example";
+
 export default function ContactPage() {
-  const contactEmail = "goodheaven521@gmail.com";
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "ContactPage",

@@ -32,7 +32,7 @@ This checklist is for moving Commerce Toolbase from local Docker testing to a pu
 
 ### Trust And Compliance
 
-- Replace placeholder contact details with a working inbox.
+- Replace placeholder contact details with a working inbox by setting `NEXT_PUBLIC_CONTACT_EMAIL`.
 - Review privacy policy and terms before launch.
 - Keep affiliate disclosure visible on any page with affiliate links.
 - Document editorial methodology before scaling reviews.
