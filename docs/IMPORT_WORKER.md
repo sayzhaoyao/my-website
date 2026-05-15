@@ -45,6 +45,29 @@ Then validate the generated import file:
 docker compose --profile tools run --rm worker npm run import:tools -- --file data/generated/url-metadata.tools.json --dry-run
 ```
 
+## Compare Collection Runs
+
+To compare two collector outputs and create a review report:
+
+```powershell
+docker compose --profile tools run --rm worker npm run compare:collections -- --previous data/generated/url-metadata.previous.json --current data/generated/url-metadata.tools.json --output data/generated/url-metadata.review-report.json
+```
+
+The report highlights:
+
+- added tools,
+- removed tools,
+- changed SEO title or description,
+- changed main page title, description, H1, canonical URL, final URL, or last-modified value,
+- changed pricing or changelog page snapshots.
+
+Review priority:
+
+- `high`: canonical URL or final URL changed.
+- `medium`: pricing or changelog page changed.
+- `low`: other metadata changed.
+- `none`: no differences.
+
 If it looks good, write it to Strapi:
 
 ```powershell

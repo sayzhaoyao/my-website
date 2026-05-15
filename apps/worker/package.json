@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "collect:url-metadata": "node scripts/collect-url-metadata.js",
+    "compare:collections": "node scripts/compare-collections.js",
     "import:tools": "node scripts/import-tools.js"
   },
   "engines": {
