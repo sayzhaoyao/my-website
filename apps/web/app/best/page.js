@@ -32,7 +32,7 @@ export default async function BestIndexPage() {
           <p>Start with the job you need to solve, then compare tools by fit, workflow, and practical trade-offs.</p>
             <div className="hero-actions">
               {featured ? <Link className="button primary" href={`/best/${featured.slug}`}>Open featured guide</Link> : null}
-              <Link className="button" href="/#categories">Browse categories</Link>
+              <Link className="button" href="/categories">Browse categories</Link>
             </div>
           </div>
           <aside className="verdict-panel">
