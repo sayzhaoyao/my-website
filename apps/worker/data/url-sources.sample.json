@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Shopify",
+    "url": "https://www.shopify.com/",
+    "categorySlugs": ["workflow-automation-tools"],
+    "pricingModel": "unknown",
+    "bestFor": ["E-commerce store builders"],
+    "recommendedFor": ["Merchants launching or scaling an online store"],
+    "notRecommendedFor": ["Teams that only need a content blog"]
+  },
+  {
+    "name": "Klaviyo",
+    "url": "https://www.klaviyo.com/",
+    "categorySlugs": ["email-marketing-tools"],
+    "pricingModel": "freemium",
+    "bestFor": ["Retention marketing", "Email and SMS automation"],
+    "recommendedFor": ["DTC brands with repeat purchase potential"],
+    "notRecommendedFor": ["Tiny lists that only need basic newsletters"]
+  }
+]

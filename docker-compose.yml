@@ -81,6 +81,8 @@ services:
     environment:
       STRAPI_URL: ${STRAPI_INTERNAL_URL:-http://cms:1337}
       STRAPI_API_TOKEN: ${STRAPI_API_TOKEN:-}
+    volumes:
+      - ./apps/worker/data:/opt/worker/data
     depends_on:
       cms:
         condition: service_started

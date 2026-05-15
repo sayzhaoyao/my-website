@@ -23,6 +23,9 @@ apps/cms/public/uploads/
 apps/web/.next/
 apps/web/out/
 
+# Worker generated data
+apps/worker/data/generated/
+
 # Logs
 *.log
 npm-debug.log*

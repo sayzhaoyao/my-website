@@ -5,6 +5,7 @@
   "description": "Import and update worker scripts for Commerce Toolbase content.",
   "type": "module",
   "scripts": {
+    "collect:url-metadata": "node scripts/collect-url-metadata.js",
     "import:tools": "node scripts/import-tools.js"
   },
   "engines": {

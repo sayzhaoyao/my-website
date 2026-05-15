@@ -28,6 +28,34 @@ Equivalent explicit command:
 docker compose --profile tools run --rm worker npm run import:tools -- --file data/tools.sample.json --dry-run
 ```
 
+## Collect URL Metadata
+
+The first collector reads a local list of official URLs, fetches public page metadata, and writes a tool import JSON file.
+
+Run:
+
+```powershell
+docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input data/url-sources.sample.json --output data/generated/url-metadata.tools.json
+```
+
+Then validate the generated import file:
+
+```powershell
+docker compose --profile tools run --rm worker npm run import:tools -- --file data/generated/url-metadata.tools.json --dry-run
+```
+
+If it looks good, write it to Strapi:
+
+```powershell
+docker compose --profile tools run --rm worker npm run import:tools -- --file data/generated/url-metadata.tools.json --write --source-name "URL metadata collector" --source-url "file://data/url-sources.sample.json" --source-type official_site
+```
+
+Generated collector output is ignored by Git:
+
+```text
+apps/worker/data/generated/
+```
+
 ## Write To Strapi
 
 Writing requires a Strapi API token.
@@ -125,9 +153,15 @@ See:
 apps/worker/data/tools.sample.json
 ```
 
+URL collector input example:
+
+```text
+apps/worker/data/url-sources.sample.json
+```
+
 ## Next Worker Milestones
 
-1. Add source-specific collectors that output the same JSON format.
-2. Add write verification against a local Strapi API token.
-3. Add richer import logs for skipped fields and source confidence.
+1. Add richer collectors for pricing pages, changelogs, RSS feeds, and official APIs.
+2. Add source confidence and skipped-field notes to import logs.
+3. Add allowlist and robots-policy notes per source.
 4. Add scheduled execution only after manual imports are reliable.
