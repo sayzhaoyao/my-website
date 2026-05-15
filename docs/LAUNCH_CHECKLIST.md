@@ -23,6 +23,7 @@ This checklist is for moving Commerce Toolbase from local Docker testing to a pu
 ### SEO Readiness
 
 - Set `NEXT_PUBLIC_SITE_URL` to the final production domain.
+- Follow `docs/DEPLOYMENT.md` for hosting and environment setup.
 - Check every indexable page has a unique title, description, H1, canonical URL, and internal links.
 - Confirm `/sitemap.xml`, `/robots.txt`, and `/feed.xml` work on the production domain.
 - Submit the sitemap in Google Search Console after deployment.

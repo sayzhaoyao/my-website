@@ -11,6 +11,7 @@ Read these in order:
 2. `docs/MVP_SPEC.md`: first version scope, recommended stack, content model, SEO rules, and build order.
 3. `docs/WEBSITE_STRATEGY.md`: broader strategy options and long-term considerations.
 4. `docs/LAUNCH_CHECKLIST.md`: production launch, SEO, trust, monetization, and operations checklist.
+5. `docs/DEPLOYMENT.md`: production hosting options, environment variables, and deployment checks.
 
 ## Recommended Next Decisions
 Before public launch, decide:
