@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Example Commerce AI",
+    "slug": "example-commerce-ai",
+    "editorialStatus": "review",
+    "websiteUrl": "https://example.com",
+    "shortDescription": "Example imported tool record for testing the content worker.",
+    "longDescription": "Use this sample record to verify the import pipeline before connecting live sources.",
+    "pricingModel": "freemium",
+    "startingPrice": 0,
+    "freePlanAvailable": true,
+    "keyFeatures": ["Product copy generation", "Store task automation", "SEO content briefs"],
+    "pros": ["Simple test data", "Safe review status", "Easy to replace"],
+    "cons": ["Not a real production record"],
+    "bestFor": ["Worker testing", "CMS import validation"],
+    "decisionSummary": "Use this record only to test that worker imports reach Strapi correctly.",
+    "easeOfUseScore": 4,
+    "pricingValueScore": 3,
+    "integrationScore": 2,
+    "automationDepthScore": 3,
+    "seoUsefulnessScore": 4,
+    "supportQualityScore": 2,
+    "recommendedFor": ["Local import testing"],
+    "notRecommendedFor": ["Public production pages"],
+    "sourceUrls": ["https://example.com"],
+    "categorySlugs": ["workflow-automation-tools"],
+    "seoTitle": "Example Commerce AI Review",
+    "seoDescription": "Example imported tool record used to test the local content worker."
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "name": "my-website-worker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Import and update worker scripts for Commerce Toolbase content.",
+  "type": "module",
+  "scripts": {
+    "import:tools": "node scripts/import-tools.js"
+  },
+  "engines": {
+    "node": ">=20.0.0 <=22.x.x",
+    "npm": ">=10.0.0"
+  }
+}

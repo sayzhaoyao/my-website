@@ -68,6 +68,23 @@ services:
       cms:
         condition: service_started
 
+  worker:
+    build:
+      context: ./apps/worker
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-mirror.gcr.io/library/node:22-alpine}
+    container_name: my-website-worker
+    profiles:
+      - tools
+    env_file:
+      - .env
+    environment:
+      STRAPI_URL: ${STRAPI_INTERNAL_URL:-http://cms:1337}
+      STRAPI_API_TOKEN: ${STRAPI_API_TOKEN:-}
+    depends_on:
+      cms:
+        condition: service_started
+
 volumes:
   postgres_data:
   cms_node_modules:

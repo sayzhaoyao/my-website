@@ -1,6 +1,6 @@
 # My Website
 
-This repository is currently in the planning/setup stage. It contains project instructions, agent skills, and a website planning document, but it does not yet contain a runnable website.
+This repository contains a local Docker-based website stack for a niche directory and comparison site.
 
 ## Current Structure
 
@@ -20,6 +20,7 @@ my-website/
 |-- apps/
 |   +-- cms/
 |   +-- web/
+|   +-- worker/
 +-- .agents/
     +-- skills/
         +-- design-ui-designer/
@@ -61,7 +62,7 @@ Database: PostgreSQL on port 5432
 
 ## Next Step
 
-Planning has started. Read these files in order:
+Read these files in order:
 
 1. `docs/SITE_DIRECTION.md`
 2. `docs/MVP_SPEC.md`
@@ -71,7 +72,8 @@ Planning has started. Read these files in order:
 6. `docs/SEED_DATA.md`
 7. `docs/PROJECT_PLAN.md`
 8. `docs/WEBSITE_STRATEGY.md`
+9. `docs/IMPORT_WORKER.md`
 
 The current recommendation is to build a niche directory and comparison website for AI and software tools used by cross-border e-commerce sellers, using Next.js, Strapi, PostgreSQL, and Docker Compose.
 
-The next implementation milestone is to enrich the first content records and add comparison/alternatives pages.
+The next implementation milestone is to connect safe external sources to the import worker, review imported drafts in Strapi, and improve public pages with richer editorial content.
