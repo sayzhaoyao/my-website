@@ -61,6 +61,7 @@ Then re-add local bind mounts for `apps/web` in `docker-compose.yml` or run the 
 - `/affiliate-disclosure`
 - `/privacy-policy`
 - `/terms`
+- `/manifest.webmanifest`
 - `/robots.txt`
 - `/sitemap.xml`
 
@@ -125,6 +126,8 @@ Implemented:
 - about and contact pages,
 - privacy policy,
 - terms of use,
+- default Open Graph and Twitter metadata,
+- web app manifest,
 - robots.txt,
 - sitemap.xml,
 - semantic page structure,
