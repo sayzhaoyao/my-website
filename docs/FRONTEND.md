@@ -64,6 +64,7 @@ Then re-add local bind mounts for `apps/web` in `docker-compose.yml` or run the 
 - `/manifest.webmanifest`
 - `/robots.txt`
 - `/sitemap.xml`
+- `/feed.xml`
 
 ## Data Flow
 
@@ -130,5 +131,8 @@ Implemented:
 - web app manifest,
 - robots.txt,
 - sitemap.xml,
+- RSS feed,
 - semantic page structure,
 - server-rendered content.
+
+The RSS feed exposes public discovery pages, category pages, buying guides, comparisons, alternatives, and tool review pages for feed readers and lightweight content syndication.

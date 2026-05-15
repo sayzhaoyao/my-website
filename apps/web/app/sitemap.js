@@ -7,6 +7,7 @@ const staticPages = [
   { path: "/affiliate-disclosure", changeFrequency: "monthly", priority: 0.4 },
   { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.25 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.25 },
+  { path: "/feed.xml", changeFrequency: "daily", priority: 0.2 },
   { path: "/best", changeFrequency: "weekly", priority: 0.8 },
   { path: "/categories", changeFrequency: "weekly", priority: 0.8 },
   { path: "/compare", changeFrequency: "weekly", priority: 0.8 },
