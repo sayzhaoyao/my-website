@@ -24,6 +24,10 @@ jobs:
       - name: Validate Compose config
         run: docker compose config --quiet
 
+      - name: Validate CMS schemas
+        shell: pwsh
+        run: ./scripts/verify-cms-schemas.ps1
+
       - name: Build and start local stack
         run: docker compose up --build -d
 

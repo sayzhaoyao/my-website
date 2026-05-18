@@ -7,6 +7,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $failures = 0
+$repoRoot = Split-Path -Parent $PSScriptRoot
 
 function Convert-ResponseContentToText {
   param($Content)
@@ -79,6 +80,9 @@ function Test-Canonical {
 
 Write-Host "[verify-local] Checking Docker services"
 docker compose ps
+
+Write-Host "[verify-local] Checking CMS schemas"
+& (Join-Path $repoRoot "scripts/verify-cms-schemas.ps1")
 
 Write-Host "[verify-local] Checking website endpoints"
 Test-Url -Name "Homepage" -Url $WebUrl -ExpectedText "Commerce Toolbase"
