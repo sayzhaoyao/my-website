@@ -28,6 +28,11 @@ jobs:
         shell: pwsh
         run: ./scripts/verify-cms-schemas.ps1
 
+      - name: Validate worker URL source samples
+        run: |
+          docker compose --profile tools build worker
+          docker compose --profile tools run --rm worker npm run validate:url-sources -- --file data/url-sources.sample.json
+
       - name: Build and start local stack
         run: docker compose up --build -d
 

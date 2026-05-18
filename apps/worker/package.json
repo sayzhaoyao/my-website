@@ -5,6 +5,7 @@
   "description": "Import and update worker scripts for Commerce Toolbase content.",
   "type": "module",
   "scripts": {
+    "validate:url-sources": "node scripts/validate-url-sources.js",
     "collect:url-metadata": "node scripts/collect-url-metadata.js",
     "compare:collections": "node scripts/compare-collections.js",
     "sync:review-queue": "node scripts/sync-review-queue.js",

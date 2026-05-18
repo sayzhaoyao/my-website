@@ -273,6 +273,12 @@ URL collector input example:
 apps/worker/data/url-sources.sample.json
 ```
 
+Validate URL collector input before collecting:
+
+```powershell
+docker compose --profile tools run --rm worker npm run validate:url-sources -- --file data/url-sources.sample.json
+```
+
 Optional URL collector fields:
 
 - `pricingUrl`
