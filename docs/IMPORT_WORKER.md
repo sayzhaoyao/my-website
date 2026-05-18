@@ -246,6 +246,7 @@ Important fields:
 - `name`
 - `slug`
 - `shortDescription`
+- `longDescription`
 - `websiteUrl`
 - `pricingModel`
 - `keyFeatures`
@@ -256,6 +257,7 @@ Important fields:
 - six score fields from 1 to 5
 - `recommendedFor`
 - `notRecommendedFor`
+- `affiliateDisclosure`
 - `sourceUrls`
 - `categorySlugs`
 - `seoTitle`

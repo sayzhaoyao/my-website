@@ -73,7 +73,7 @@ docker compose logs -f web
 
 ## Local Verification
 
-After the stack is running, check CMS schemas, seed content completeness, worker source samples, the main website, SEO endpoints, canonical URLs, icons, and CMS admin route:
+After the stack is running, check CMS schemas, seed content completeness, worker source samples, the worker tool-import dry-run, the main website, SEO endpoints, canonical URLs, icons, and CMS admin route:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/verify-local.ps1

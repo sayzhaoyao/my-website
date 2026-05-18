@@ -122,6 +122,9 @@ Write-Host "[verify-local] Checking worker URL source samples"
 docker compose --profile tools build worker
 docker compose --profile tools run --rm worker npm run validate:url-sources -- --file data/url-sources.sample.json
 
+Write-Host "[verify-local] Checking worker tool import sample"
+docker compose --profile tools run --rm worker npm run import:tools -- --file data/tools.sample.json --dry-run
+
 Write-Host "[verify-local] Waiting for website and CMS readiness"
 Wait-Url -Name "Website" -Url $WebUrl
 Wait-Url -Name "CMS admin" -Url "$CmsUrl/admin"
