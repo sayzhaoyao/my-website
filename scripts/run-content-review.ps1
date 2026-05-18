@@ -14,6 +14,28 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 $workerDataDir = Join-Path $repoRoot "apps/worker/data/generated"
 $currentHostPath = Join-Path $repoRoot ("apps/worker/" + $CurrentFile)
 $previousHostPath = Join-Path $repoRoot ("apps/worker/" + $PreviousFile)
+$envPath = Join-Path $repoRoot ".env"
+
+function Get-DotEnvValue {
+  param(
+    [Parameter(Mandatory = $true)]
+    [string]$Name
+  )
+
+  if (-not (Test-Path -LiteralPath $envPath)) {
+    return ""
+  }
+
+  $line = Get-Content -LiteralPath $envPath |
+    Where-Object { $_ -match "^$([regex]::Escape($Name))=" } |
+    Select-Object -First 1
+
+  if (-not $line) {
+    return ""
+  }
+
+  return ($line -split "=", 2)[1].Trim().Trim('"').Trim("'")
+}
 
 function Invoke-CheckedCommand {
   param(
@@ -25,6 +47,10 @@ function Invoke-CheckedCommand {
   if ($LASTEXITCODE -ne 0) {
     throw "Command failed with exit code $LASTEXITCODE."
   }
+}
+
+if ($WriteQueue -and [string]::IsNullOrWhiteSpace((Get-DotEnvValue "STRAPI_API_TOKEN")) -and [string]::IsNullOrWhiteSpace($env:STRAPI_API_TOKEN)) {
+  throw "STRAPI_API_TOKEN is required in .env or the current shell when using -WriteQueue."
 }
 
 New-Item -ItemType Directory -Force -Path $workerDataDir | Out-Null
