@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { assertValidUrlSources } from "./validate-url-sources.js";
 
 const defaultInput = "data/url-sources.sample.json";
 const defaultOutput = "data/generated/url-metadata.tools.json";
@@ -101,10 +102,7 @@ function extractMetadata(html) {
 async function readJson(filePath) {
   const content = await fs.readFile(path.resolve(process.cwd(), filePath), "utf8");
   const data = JSON.parse(content);
-  if (!Array.isArray(data)) {
-    throw new Error("URL source file must contain an array.");
-  }
-  return data;
+  return assertValidUrlSources(data, filePath);
 }
 
 function assertSafeFetchUrl(url) {

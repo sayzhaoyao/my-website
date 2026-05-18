@@ -3,7 +3,7 @@ import path from "node:path";
 import process from "node:process";
 
 const defaultFile = "data/url-sources.sample.json";
-const allowedPricingModels = new Set(["free", "freemium", "paid", "custom", "unknown"]);
+export const allowedPricingModels = new Set(["free", "freemium", "paid", "custom", "unknown"]);
 const arrayFields = [
   "categorySlugs",
   "sourceUrls",
@@ -140,16 +140,29 @@ function validateRecord(record, index, seen) {
   return errors;
 }
 
-async function main() {
-  const options = parseArgs(process.argv.slice(2));
-  const data = await readJson(options.file);
-
+export function validateUrlSources(data) {
   if (!Array.isArray(data)) {
-    throw new Error(`${options.file} must contain an array.`);
+    return ["URL source file must contain an array."];
   }
 
   const seen = new Set();
-  const errors = data.flatMap((record, index) => validateRecord(record, index, seen));
+  return data.flatMap((record, index) => validateRecord(record, index, seen));
+}
+
+export function assertValidUrlSources(data, fileLabel = "URL source file") {
+  const errors = validateUrlSources(data);
+
+  if (errors.length > 0) {
+    throw new Error(`${fileLabel} validation failed with ${errors.length} error(s):\n${errors.join("\n")}`);
+  }
+
+  return data;
+}
+
+async function main() {
+  const options = parseArgs(process.argv.slice(2));
+  const data = await readJson(options.file);
+  const errors = validateUrlSources(data);
 
   if (errors.length > 0) {
     for (const error of errors) {
@@ -157,11 +170,12 @@ async function main() {
     }
     throw new Error(`URL source validation failed with ${errors.length} error(s).`);
   }
-
   console.log(`Validated ${data.length} URL source record(s) from ${options.file}.`);
 }
 
-main().catch((error) => {
-  console.error(error.message);
-  process.exitCode = 1;
-});
+if (import.meta.url === `file://${process.argv[1]}`) {
+  main().catch((error) => {
+    console.error(error.message);
+    process.exitCode = 1;
+  });
+}
