@@ -98,6 +98,11 @@ export default async function AlternativeDetailPage({ params }) {
             <p className="eyebrow">Alternatives</p>
             <h1>{alternative.title}</h1>
             <p>{alternative.intro || alternative.seoDescription}</p>
+            <div className="hero-summary" aria-label="Alternatives summary">
+              <span><strong>{tools.length}</strong> alternatives</span>
+              <span><strong>{criteria.length || 4}</strong> criteria</span>
+              <span><strong>{topAlternative?.name || "Pending"}</strong> first review</span>
+            </div>
             <div className="hero-actions">
               {topAlternative ? <Link className="button primary" href={`/tools/${topAlternative.slug}`}>Review {topAlternative.name}</Link> : null}
               {primaryTool ? <Link className="button secondary" href={`/tools/${primaryTool.slug}`}>Compare against {primaryTool.name}</Link> : null}
@@ -113,7 +118,7 @@ export default async function AlternativeDetailPage({ params }) {
       <section className="section">
         <div className="container two-column">
           <div className="detail-panel">
-            <article className="card">
+            <article className="feature-card">
               <h2>Recommended alternatives</h2>
               <ol className="rank-list">
                 {tools.map((tool, index) => (

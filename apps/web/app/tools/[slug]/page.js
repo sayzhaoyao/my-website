@@ -140,6 +140,11 @@ export default async function ToolPage({ params }) {
               <span className="pill">{verdict}</span>
               <span className="pill">Updated {formatDate(updatedAt)}</span>
             </div>
+            <div className="hero-summary" aria-label={`${tool.name} summary`}>
+              <span><strong>{pricingText}</strong> pricing</span>
+              <span><strong>{tool.freePlanAvailable ? "Yes" : "No"}</strong> free plan</span>
+              <span><strong>{categories[0]?.name || "Review"}</strong> category</span>
+            </div>
             <div className="hero-actions">
               {officialUrl ? (
                 <a className="button primary" href={officialUrl} rel="nofollow sponsored noopener" target="_blank">
@@ -166,7 +171,7 @@ export default async function ToolPage({ params }) {
       <section className="section">
         <div className="container two-column">
           <div className="detail-panel">
-            <article className="card tool-summary-card">
+            <article className="feature-card tool-summary-card">
               <h2>Should you use {tool.name}?</h2>
               <div className="decision-grid">
                 <div className="decision-box positive">

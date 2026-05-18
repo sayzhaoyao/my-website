@@ -83,6 +83,11 @@ export default async function CompareDetailPage({ params }) {
             <p className="eyebrow">Comparison</p>
             <h1>{comparison.title}</h1>
             <p>{comparison.summary}</p>
+            <div className="matchup-strip" aria-label="Compared tools">
+              <span>{toolA?.name || "Tool A"}</span>
+              <strong>vs</strong>
+              <span>{toolB?.name || "Tool B"}</span>
+            </div>
             <div className="hero-actions">
               {toolA ? <Link className="button primary" href={`/tools/${toolA.slug}`}>Review {toolA.name}</Link> : null}
               {toolB ? <Link className="button secondary" href={`/tools/${toolB.slug}`}>Review {toolB.name}</Link> : null}
@@ -98,7 +103,22 @@ export default async function CompareDetailPage({ params }) {
       <section className="section">
         <div className="container two-column">
           <div className="detail-panel">
-            <article className="card">
+            <section className="matchup-grid" aria-label="Tool comparison summary">
+              {[toolA, toolB].filter(Boolean).map((tool) => (
+                <article className="matchup-card" key={tool.documentId}>
+                  <span className="verdict-label">Review</span>
+                  <h2><Link href={`/tools/${tool.slug}`}>{tool.name}</Link></h2>
+                  <p>{tool.decisionSummary || tool.shortDescription}</p>
+                  <div className="meta">
+                    <span className="score-badge">{getAverageScore(tool) || "Pending"} score</span>
+                    <span className="pill">{formatPricing(tool)}</span>
+                    {tool.freePlanAvailable ? <span className="pill">Free plan</span> : null}
+                  </div>
+                </article>
+              ))}
+            </section>
+
+            <article className="feature-card">
               <h2>Decision snapshot</h2>
               <div className="comparison-table">
                 <div className="comparison-row table-head">

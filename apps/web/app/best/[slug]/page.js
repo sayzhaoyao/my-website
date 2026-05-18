@@ -82,6 +82,11 @@ export default async function BestDetailPage({ params }) {
             <p className="eyebrow">Best tools list</p>
             <h1>{list.title}</h1>
             <p>{list.intro || list.seoDescription}</p>
+            <div className="hero-summary" aria-label="Guide summary">
+              <span><strong>{tools.length}</strong> tools reviewed</span>
+              <span><strong>{criteria.length || 5}</strong> selection criteria</span>
+              <span><strong>{topTool?.name || "Pending"}</strong> top pick</span>
+            </div>
             <div className="hero-actions">
               {topTool ? <Link className="button primary" href={`/tools/${topTool.slug}`}>View top pick</Link> : null}
               <Link className="button" href="/best">All buying guides</Link>
@@ -98,7 +103,7 @@ export default async function BestDetailPage({ params }) {
       <section className="section">
         <div className="container two-column">
           <div className="detail-panel">
-            <article className="card">
+            <article className="feature-card">
               <h2>Top picks</h2>
               <ol className="rank-list">
                 {tools.map((tool, index) => (
