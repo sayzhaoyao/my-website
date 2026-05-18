@@ -17,7 +17,15 @@
     },
     "sourceType": {
       "type": "enumeration",
-      "enum": ["official_site", "pricing_page", "rss", "api", "changelog", "manual_submission", "other"],
+      "enum": [
+        "official_site",
+        "pricing_page",
+        "rss",
+        "api",
+        "changelog",
+        "manual_submission",
+        "other"
+      ],
       "default": "official_site"
     },
     "url": {
@@ -29,7 +37,12 @@
     },
     "fetchFrequency": {
       "type": "enumeration",
-      "enum": ["manual", "daily", "weekly", "monthly"],
+      "enum": [
+        "manual",
+        "daily",
+        "weekly",
+        "monthly"
+      ],
       "default": "manual"
     },
     "lastCheckedAt": {
@@ -37,7 +50,12 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": ["active", "paused", "blocked", "archived"],
+      "enum": [
+        "active",
+        "paused",
+        "blocked",
+        "archived"
+      ],
       "default": "active"
     },
     "tools": {

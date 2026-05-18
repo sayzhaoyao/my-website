@@ -5,7 +5,7 @@
     "singularName": "best-list",
     "pluralName": "best-lists",
     "displayName": "最佳工具榜单",
-    "description": "面向搜索意图的 Best Tools 榜单页。"
+    "description": "面向搜索意图的 Best Tools 榜单页面。"
   },
   "options": {
     "draftAndPublish": true

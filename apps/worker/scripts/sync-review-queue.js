@@ -5,6 +5,16 @@ import process from "node:process";
 const defaultFile = "data/generated/url-metadata.review-report.json";
 const allowedPriorities = new Set(["high", "medium", "low"]);
 const allowedStatuses = new Set(["added", "changed", "removed"]);
+const priorityLabels = {
+  high: "高",
+  medium: "中",
+  low: "低",
+};
+const statusLabels = {
+  added: "新增",
+  changed: "变更",
+  removed: "移除",
+};
 
 function parseArgs(argv) {
   const options = {
@@ -70,15 +80,19 @@ function queueKey(item) {
 
 function titleForItem(item) {
   const name = item.name || item.slug || item.websiteUrl || item.key;
-  return `${item.reviewPriority.toUpperCase()} ${item.status}: ${name}`;
+  const priority = priorityLabels[item.reviewPriority] || item.reviewPriority;
+  const status = statusLabels[item.status] || item.status;
+  return `${priority}优先级 ${status}: ${name}`;
 }
 
 function notesForItem(item, report) {
+  const priority = priorityLabels[item.reviewPriority] || item.reviewPriority;
+  const status = statusLabels[item.status] || item.status;
   return [
-    `Generated from collection comparison at ${report.summary.comparedAt}.`,
-    `Status: ${item.status}. Priority: ${item.reviewPriority}.`,
-    `Changes: ${item.changes.length}.`,
-    "Review source pages before updating public editorial content.",
+    `由采集对比任务生成，时间：${report.summary.comparedAt}。`,
+    `状态：${status}。优先级：${priority}。`,
+    `变更数量：${item.changes.length}。`,
+    "请先核对官方来源页面，再更新公开页面内容。",
   ].join("\n");
 }
 
@@ -191,7 +205,7 @@ async function main() {
   if (options.dryRun) {
     for (const item of actionableItems) {
       const data = normalizeItem(item, report);
-      console.log(`[dry-run] ${data.queueKey}: ${data.priority} ${data.changeStatus} with ${data.changes.length} change(s).`);
+      console.log(`[dry-run] ${data.queueKey}: ${data.title}，${data.changes.length} 处变更。`);
     }
     console.log("Dry run complete. Re-run with --write and STRAPI_API_TOKEN to write to Strapi.");
     return;

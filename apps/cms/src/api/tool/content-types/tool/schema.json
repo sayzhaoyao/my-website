@@ -23,7 +23,12 @@
     },
     "editorialStatus": {
       "type": "enumeration",
-      "enum": ["draft", "review", "published", "archived"],
+      "enum": [
+        "draft",
+        "review",
+        "published",
+        "archived"
+      ],
       "default": "draft",
       "required": true
     },
@@ -39,7 +44,9 @@
     "logo": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "shortDescription": {
       "type": "text",
@@ -50,7 +57,13 @@
     },
     "pricingModel": {
       "type": "enumeration",
-      "enum": ["free", "freemium", "paid", "custom", "unknown"],
+      "enum": [
+        "free",
+        "freemium",
+        "paid",
+        "custom",
+        "unknown"
+      ],
       "default": "unknown"
     },
     "startingPrice": {

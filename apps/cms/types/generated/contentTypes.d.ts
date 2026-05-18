@@ -483,7 +483,7 @@ export interface ApiAlternativeAlternative extends Struct.CollectionTypeSchema {
 export interface ApiBestListBestList extends Struct.CollectionTypeSchema {
   collectionName: 'best_lists';
   info: {
-    description: '\u9762\u5411\u641C\u7D22\u610F\u56FE\u7684 Best Tools \u699C\u5355\u9875\u3002';
+    description: '\u9762\u5411\u641C\u7D22\u610F\u56FE\u7684 Best Tools \u699C\u5355\u9875\u9762\u3002';
     displayName: '\u6700\u4F73\u5DE5\u5177\u699C\u5355';
     pluralName: 'best-lists';
     singularName: 'best-list';
@@ -561,7 +561,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
 export interface ApiComparisonComparison extends Struct.CollectionTypeSchema {
   collectionName: 'comparisons';
   info: {
-    description: '\u4E24\u4E2A\u5DE5\u5177\u4E4B\u95F4\u7684\u51B3\u7B56\u5BF9\u6BD4\u9875\u3002';
+    description: '\u4E24\u4E2A\u5DE5\u5177\u4E4B\u95F4\u7684\u51B3\u7B56\u5BF9\u6BD4\u9875\u9762\u3002';
     displayName: '\u5DE5\u5177\u5BF9\u6BD4';
     pluralName: 'comparisons';
     singularName: 'comparison';
@@ -642,8 +642,8 @@ export interface ApiImportLogImportLog extends Struct.CollectionTypeSchema {
 export interface ApiReviewQueueReviewQueue extends Struct.CollectionTypeSchema {
   collectionName: 'review_queues';
   info: {
-    description: 'Internal editorial queue for collected content changes that require human review.';
-    displayName: 'Review Queue';
+    description: '\u7528\u4E8E\u4EBA\u5DE5\u5BA1\u6838\u81EA\u52A8\u91C7\u96C6\u5185\u5BB9\u53D8\u66F4\u7684\u5185\u90E8\u961F\u5217\u3002';
+    displayName: '\u5BA1\u6838\u961F\u5217';
     pluralName: 'review-queues';
     singularName: 'review-queue';
   };

@@ -4,8 +4,8 @@
   "info": {
     "singularName": "review-queue",
     "pluralName": "review-queues",
-    "displayName": "Review Queue",
-    "description": "Internal editorial queue for collected content changes that require human review."
+    "displayName": "审核队列",
+    "description": "用于人工审核自动采集内容变更的内部队列。"
   },
   "options": {
     "draftAndPublish": false
@@ -22,19 +22,32 @@
     },
     "itemStatus": {
       "type": "enumeration",
-      "enum": ["open", "in_review", "resolved", "ignored"],
+      "enum": [
+        "open",
+        "in_review",
+        "resolved",
+        "ignored"
+      ],
       "default": "open",
       "required": true
     },
     "priority": {
       "type": "enumeration",
-      "enum": ["high", "medium", "low"],
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
       "default": "low",
       "required": true
     },
     "changeStatus": {
       "type": "enumeration",
-      "enum": ["added", "changed", "removed"],
+      "enum": [
+        "added",
+        "changed",
+        "removed"
+      ],
       "required": true
     },
     "toolSlug": {

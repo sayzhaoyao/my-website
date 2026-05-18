@@ -5,7 +5,7 @@
     "singularName": "comparison",
     "pluralName": "comparisons",
     "displayName": "工具对比",
-    "description": "两个工具之间的决策对比页。"
+    "description": "两个工具之间的决策对比页面。"
   },
   "options": {
     "draftAndPublish": true

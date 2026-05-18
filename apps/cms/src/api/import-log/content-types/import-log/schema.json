@@ -13,7 +13,12 @@
   "attributes": {
     "runStatus": {
       "type": "enumeration",
-      "enum": ["started", "success", "partial_success", "failed"],
+      "enum": [
+        "started",
+        "success",
+        "partial_success",
+        "failed"
+      ],
       "default": "started",
       "required": true
     },
