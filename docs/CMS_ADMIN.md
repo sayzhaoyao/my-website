@@ -37,7 +37,7 @@ API field names remain in English to keep frontend development and integrations 
 
 ## Review Queue Workflow
 
-The Review Queue is for internal editorial checks created by the collection worker.
+The Review Queue is shown as `审核队列` in the CMS. It is for internal editorial checks created by the collection worker.
 
 Open items usually come from:
 
@@ -56,9 +56,10 @@ Priority meaning:
 Suggested handling:
 
 1. Open the related tool page and official source URLs.
-2. Confirm whether public content needs an update.
-3. Update the Tool, Best List, Comparison, or Alternatives page content if needed.
-4. Change `itemStatus` to `resolved` when handled.
-5. Use `ignored` only when the change is known noise.
+2. Read `changeSummary` first. It lists the changed scope, field, previous value, and current value.
+3. Confirm whether public content needs an update.
+4. Update the Tool, Best List, Comparison, or Alternatives page content if needed.
+5. Change `itemStatus` to `resolved` when handled.
+6. Use `ignored` only when the change is known noise.
 
 The Review Queue is intentionally not public. It is for admin users and worker API tokens only.

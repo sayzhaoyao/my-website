@@ -96,6 +96,29 @@ function notesForItem(item, report) {
   ].join("\n");
 }
 
+function summarizeValue(value) {
+  if (!value) {
+    return "空";
+  }
+
+  const text = String(value).replace(/\s+/g, " ").trim();
+  return text.length > 160 ? `${text.slice(0, 157)}...` : text;
+}
+
+function changeSummaryForItem(item) {
+  if (!Array.isArray(item.changes) || item.changes.length === 0) {
+    return "未记录具体字段变更，请打开来源页面人工核对。";
+  }
+
+  return item.changes.map((change, index) => {
+    const scope = change.scope || "unknown";
+    const field = change.field || "field";
+    const previous = summarizeValue(change.previous);
+    const current = summarizeValue(change.current);
+    return `${index + 1}. [${scope}] ${field}: ${previous} -> ${current}`;
+  }).join("\n");
+}
+
 function normalizeItem(item, report) {
   const priority = allowedPriorities.has(item.reviewPriority) ? item.reviewPriority : "low";
   const changeStatus = allowedStatuses.has(item.status) ? item.status : "changed";
@@ -111,6 +134,7 @@ function normalizeItem(item, report) {
     toolName: item.name || undefined,
     websiteUrl: item.websiteUrl || undefined,
     changes: item.changes,
+    changeSummary: changeSummaryForItem(item),
     reportSummary: report.summary,
     lastSeenAt: now,
     notes: notesForItem({ ...item, reviewPriority: priority, status: changeStatus }, report),

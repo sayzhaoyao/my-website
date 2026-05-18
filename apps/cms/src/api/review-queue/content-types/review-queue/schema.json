@@ -62,6 +62,9 @@
     "changes": {
       "type": "json"
     },
+    "changeSummary": {
+      "type": "text"
+    },
     "reportSummary": {
       "type": "json"
     },

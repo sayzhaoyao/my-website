@@ -656,6 +656,7 @@ export interface ApiReviewQueueReviewQueue extends Struct.CollectionTypeSchema {
       ['added', 'changed', 'removed']
     > &
       Schema.Attribute.Required;
+    changeSummary: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
