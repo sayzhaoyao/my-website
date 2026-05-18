@@ -12,6 +12,23 @@ const scoreFields = [
   "seoUsefulnessScore",
   "supportQualityScore",
 ];
+const requiredReviewFields = [
+  "longDescription",
+  "decisionSummary",
+  "affiliateDisclosure",
+  "seoTitle",
+  "seoDescription",
+];
+const requiredArrayFields = [
+  "keyFeatures",
+  "pros",
+  "cons",
+  "bestFor",
+  "recommendedFor",
+  "notRecommendedFor",
+  "sourceUrls",
+  "categorySlugs",
+];
 
 function parseArgs(argv) {
   const options = {
@@ -89,6 +106,12 @@ function normalizeTool(input) {
     errors.push("shortDescription is required.");
   }
 
+  for (const field of requiredReviewFields) {
+    if (!String(input[field] || "").trim()) {
+      errors.push(`${field} is required for review-ready imports.`);
+    }
+  }
+
   if (!allowedPricingModels.has(pricingModel)) {
     errors.push(`pricingModel must be one of: ${Array.from(allowedPricingModels).join(", ")}.`);
   }
@@ -105,6 +128,12 @@ function normalizeTool(input) {
     const value = Number(input[field]);
     if (!Number.isInteger(value) || value < 1 || value > 5) {
       errors.push(`${field} must be an integer from 1 to 5.`);
+    }
+  }
+
+  for (const field of requiredArrayFields) {
+    if (!Array.isArray(input[field]) || input[field].filter(Boolean).length === 0) {
+      errors.push(`${field} must contain at least one value for review-ready imports.`);
     }
   }
 

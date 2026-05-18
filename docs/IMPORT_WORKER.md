@@ -263,6 +263,8 @@ Important fields:
 - `seoTitle`
 - `seoDescription`
 
+The import script treats these as review-ready requirements. Records missing long-form review content, source URLs, category slugs, disclosure text, SEO metadata, or core editorial arrays fail during dry-run before any write is attempted.
+
 See:
 
 ```text
