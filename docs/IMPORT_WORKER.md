@@ -66,7 +66,7 @@ Review priority:
 - `high`: canonical URL or final URL changed.
 - `medium`: pricing or changelog page changed.
 - `low`: other metadata changed.
-- `none`: no differences.
+- `none`: no differences, or only `Last-Modified` timestamps changed.
 
 ## Sync Review Queue
 

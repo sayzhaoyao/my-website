@@ -127,6 +127,10 @@ function compareRelatedPages(changes, previousRecord, currentRecord) {
 }
 
 function reviewPriority(changes) {
+  if (changes.length > 0 && changes.every((change) => change.field === "Last-Modified")) {
+    return "none";
+  }
+
   if (changes.some((change) => change.field === "Canonical URL" || change.field === "Final URL")) {
     return "high";
   }
