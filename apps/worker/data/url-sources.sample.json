@@ -48,5 +48,53 @@
     "recommendedFor": ["Shopify brands treating SMS as a serious owned channel"],
     "notRecommendedFor": ["Stores that only need basic email newsletters"],
     "reviewNotes": ["Verify current usage billing, carrier fee handling, compliance requirements, and latest product-update page."]
+  },
+  {
+    "name": "Gorgias",
+    "url": "https://www.gorgias.com/",
+    "pricingUrl": "https://www.gorgias.com/pricing",
+    "categorySlugs": ["customer-support-tools"],
+    "pricingModel": "paid",
+    "freePlanAvailable": false,
+    "bestFor": ["E-commerce helpdesk", "Shopify customer support"],
+    "recommendedFor": ["Growing stores with repeat support tickets"],
+    "notRecommendedFor": ["Stores with very low ticket volume"],
+    "reviewNotes": ["Verify current ticket-volume pricing and AI automation limits before publishing."]
+  },
+  {
+    "name": "Semrush",
+    "url": "https://www.semrush.com/",
+    "pricingUrl": "https://www.semrush.com/pricing/",
+    "categorySlugs": ["seo-keyword-tools", "analytics-attribution-tools"],
+    "pricingModel": "paid",
+    "freePlanAvailable": false,
+    "bestFor": ["SEO research", "Competitive analysis"],
+    "recommendedFor": ["Stores and agencies investing in organic search"],
+    "notRecommendedFor": ["Teams that only need marketplace keyword data"],
+    "reviewNotes": ["Verify plan names, project limits, user limits, and toolkit availability before publishing."]
+  },
+  {
+    "name": "Zapier",
+    "url": "https://zapier.com/",
+    "pricingUrl": "https://zapier.com/pricing",
+    "categorySlugs": ["workflow-automation-tools"],
+    "pricingModel": "freemium",
+    "freePlanAvailable": true,
+    "bestFor": ["No-code automation", "App integrations"],
+    "recommendedFor": ["Teams connecting store, marketing, and operations tools"],
+    "notRecommendedFor": ["Teams needing fully self-hosted automation"],
+    "reviewNotes": ["Verify task limits, app access, AI features, and plan automation limits before publishing."]
+  },
+  {
+    "name": "Ahrefs",
+    "url": "https://ahrefs.com/",
+    "pricingUrl": "https://ahrefs.com/pricing",
+    "categorySlugs": ["seo-keyword-tools", "analytics-attribution-tools"],
+    "pricingModel": "paid",
+    "freePlanAvailable": false,
+    "bestFor": ["SEO research", "Backlink analysis"],
+    "recommendedFor": ["SEO teams and stores investing in content-led growth"],
+    "notRecommendedFor": ["Teams that only need basic rank checks"],
+    "reviewNotes": ["Verify current credit limits, project limits, and pricing model before publishing."]
   }
 ]
