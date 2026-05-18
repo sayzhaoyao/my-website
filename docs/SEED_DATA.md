@@ -6,9 +6,9 @@ The local CMS includes optional sample data for development:
 
 - 8 e-commerce software categories.
 - 20 sample tool records.
-- 3 sample Best Tools pages.
-- 3 sample comparison pages.
-- 2 sample alternatives pages.
+- 7 sample Best Tools pages.
+- 7 sample comparison pages.
+- 6 sample alternatives pages.
 - 1 manual source record.
 - 1 import log record.
 
@@ -17,7 +17,13 @@ The sample tools also include editorial decision fields:
 - six 1-to-5 score fields,
 - a short decision summary,
 - recommended user types,
-- not-recommended user types.
+- not-recommended user types,
+- long-form review copy,
+- source URLs,
+- affiliate disclosure text,
+- SEO title and description.
+
+The decision pages also include selection criteria, verdicts, comparison notes, alternatives criteria, and SEO metadata so local development uses realistic search-oriented content instead of thin placeholder pages.
 
 This makes it easier to verify the admin backend and later build the frontend against realistic content.
 
@@ -46,7 +52,7 @@ Seeded tool information is for local development only. Before publishing a produ
 
 ## Verification
 
-Verified on 2026-05-14:
+Verified on 2026-05-18:
 
 - Strapi starts with `SEED_SAMPLE_DATA=true`.
 - The seed runs without crashing the CMS.
@@ -54,11 +60,12 @@ Verified on 2026-05-14:
 - Logical document counts after seeding:
   - 8 categories
   - 20 tools
-  - 3 best lists
-  - 3 comparisons
-  - 2 alternatives
+  - 7 best lists
+  - 7 comparisons
+  - 6 alternatives
   - 1 source
   - 1 import log
 - Re-running the seed does not create duplicate logical documents.
+- `scripts/verify-seed-content.ps1` checks that tool, best-list, comparison, and alternative seed records include the required rich content fields.
 
 Strapi 5 stores separate draft and published rows for draft-enabled content types, so database row counts are expected to be higher than logical document counts.
