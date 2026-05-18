@@ -93,7 +93,7 @@ services:
       - ./apps/worker/data:/opt/worker/data
     depends_on:
       cms:
-        condition: service_started
+        condition: service_healthy
 
 volumes:
   postgres_data:
