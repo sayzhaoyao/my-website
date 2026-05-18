@@ -79,6 +79,8 @@ After the stack is running, check the main website, SEO endpoints, canonical URL
 powershell -ExecutionPolicy Bypass -File scripts/verify-local.ps1
 ```
 
+The verification script waits for the frontend and CMS to become ready, which helps after a fresh `docker compose up --build -d` when the Next.js container is still finishing its production build.
+
 ## Content Review Pipeline
 
 Run the local collection, comparison, and review-queue dry-run:
