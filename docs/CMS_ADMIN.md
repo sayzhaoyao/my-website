@@ -78,3 +78,15 @@ Useful filters:
 docker compose --profile tools run --rm worker npm run review:list -- --priority high
 docker compose --profile tools run --rm worker npm run review:list -- --status in_review
 ```
+
+Safely preview a status change:
+
+```powershell
+docker compose --profile tools run --rm worker npm run review:update -- --queue-key collection-change-shopify --status in_review
+```
+
+Write the status change after checking the dry-run:
+
+```powershell
+docker compose --profile tools run --rm worker npm run review:update -- --queue-key collection-change-shopify --status resolved --note "Checked official pricing and no public copy update was needed." --write
+```
