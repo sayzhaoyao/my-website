@@ -15,10 +15,22 @@ $workerDataDir = Join-Path $repoRoot "apps/worker/data/generated"
 $currentHostPath = Join-Path $repoRoot ("apps/worker/" + $CurrentFile)
 $previousHostPath = Join-Path $repoRoot ("apps/worker/" + $PreviousFile)
 
+function Invoke-CheckedCommand {
+  param(
+    [Parameter(Mandatory = $true)]
+    [scriptblock]$Command
+  )
+
+  & $Command
+  if ($LASTEXITCODE -ne 0) {
+    throw "Command failed with exit code $LASTEXITCODE."
+  }
+}
+
 New-Item -ItemType Directory -Force -Path $workerDataDir | Out-Null
 
 Write-Host "[content-review] Building worker image"
-docker compose --profile tools build worker
+Invoke-CheckedCommand { docker compose --profile tools build worker }
 
 if (-not $UseExistingReport) {
   if (Test-Path -LiteralPath $currentHostPath) {
@@ -26,24 +38,24 @@ if (-not $UseExistingReport) {
     Copy-Item -LiteralPath $currentHostPath -Destination $previousHostPath -Force
   } elseif (-not (Test-Path -LiteralPath $previousHostPath)) {
     Write-Host "[content-review] No previous output found; collecting baseline first"
-    docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input $InputFile --output $PreviousFile
+    Invoke-CheckedCommand { docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input $InputFile --output $PreviousFile }
   }
 
   Write-Host "[content-review] Collecting current metadata"
-  docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input $InputFile --output $CurrentFile
+  Invoke-CheckedCommand { docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input $InputFile --output $CurrentFile }
 
   Write-Host "[content-review] Comparing current metadata against previous run"
-  docker compose --profile tools run --rm worker npm run compare:collections -- --previous $PreviousFile --current $CurrentFile --output $ReportFile
+  Invoke-CheckedCommand { docker compose --profile tools run --rm worker npm run compare:collections -- --previous $PreviousFile --current $CurrentFile --output $ReportFile }
 } else {
   Write-Host "[content-review] Using existing report: $ReportFile"
 }
 
 if ($WriteQueue) {
   Write-Host "[content-review] Syncing review queue to CMS"
-  docker compose --profile tools run --rm worker npm run sync:review-queue -- --file $ReportFile --write
+  Invoke-CheckedCommand { docker compose --profile tools run --rm worker npm run sync:review-queue -- --file $ReportFile --write }
 } else {
   Write-Host "[content-review] Dry-run review queue sync"
-  docker compose --profile tools run --rm worker npm run sync:review-queue -- --file $ReportFile --dry-run
+  Invoke-CheckedCommand { docker compose --profile tools run --rm worker npm run sync:review-queue -- --file $ReportFile --dry-run }
 }
 
 Write-Host "[content-review] Done"
