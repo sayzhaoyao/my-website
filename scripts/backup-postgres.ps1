@@ -16,7 +16,7 @@ $backupPath = Join-Path $backupRoot "postgres-$timestamp.sql"
 Write-Host "[backup-postgres] Creating PostgreSQL dump"
 Write-Host "[backup-postgres] Output: $backupPath"
 
-$dump = docker compose exec -T postgres sh -c 'pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" --no-owner --no-acl'
+$dump = docker compose exec -T postgres sh -c 'pg_dump -U "$POSTGRES_USER" -d "$POSTGRES_DB" --no-owner --no-acl --clean --if-exists'
 
 if (-not $dump) {
   throw "pg_dump returned empty output."
