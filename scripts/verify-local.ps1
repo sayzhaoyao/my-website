@@ -52,6 +52,37 @@ function Test-Url {
   }
 }
 
+function Wait-Url {
+  param(
+    [string]$Name,
+    [string]$Url,
+    [int]$TimeoutSeconds = 120,
+    [int]$IntervalSeconds = 3
+  )
+
+  $deadline = (Get-Date).AddSeconds($TimeoutSeconds)
+  $lastError = ""
+
+  while ((Get-Date) -lt $deadline) {
+    try {
+      $response = Invoke-WebRequest -UseBasicParsing -Uri $Url -TimeoutSec 10
+      if ($response.StatusCode -ge 200 -and $response.StatusCode -lt 400) {
+        Write-Host "[ok] $Name is ready -> $Url"
+        return
+      }
+      $lastError = "Unexpected status $($response.StatusCode)"
+    } catch {
+      $lastError = $_.Exception.Message
+    }
+
+    Start-Sleep -Seconds $IntervalSeconds
+  }
+
+  $script:failures += 1
+  Write-Host "[fail] $Name did not become ready -> $Url"
+  Write-Host "       $lastError"
+}
+
 function Test-Canonical {
   param(
     [string]$Path,
@@ -87,6 +118,10 @@ Write-Host "[verify-local] Checking CMS schemas"
 Write-Host "[verify-local] Checking worker URL source samples"
 docker compose --profile tools build worker
 docker compose --profile tools run --rm worker npm run validate:url-sources -- --file data/url-sources.sample.json
+
+Write-Host "[verify-local] Waiting for website and CMS readiness"
+Wait-Url -Name "Website" -Url $WebUrl
+Wait-Url -Name "CMS admin" -Url "$CmsUrl/admin"
 
 Write-Host "[verify-local] Checking website endpoints"
 Test-Url -Name "Homepage" -Url $WebUrl -ExpectedText "Commerce Toolbase"
