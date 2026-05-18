@@ -17,41 +17,104 @@ function Add-Failure {
   Write-Host "       $Message"
 }
 
-Write-Host "[verify-seed-content] Checking tool seed review fields"
-
-$content = [System.IO.File]::ReadAllText($seedPath, $utf8)
-$toolsMatch = [System.Text.RegularExpressions.Regex]::Match(
-  $content,
-  "const tools = \[([\s\S]*?)\];\s*\r?\n\r?\nconst bestLists"
-)
-
-if (-not $toolsMatch.Success) {
-  Add-Failure -Name "tools" -Message "Unable to locate tools seed array."
-} else {
-  $toolsBlock = $toolsMatch.Groups[1].Value
-  $toolEntries = [System.Text.RegularExpressions.Regex]::Matches($toolsBlock, "\{[\s\S]*?\n  \},")
-  $requiredFields = @(
-    "longDescription",
-    "affiliateDisclosure",
-    "sourceUrls",
-    "seoTitle",
-    "seoDescription"
+function Get-SeedArrayEntries {
+  param(
+    [string]$Content,
+    [string]$ArrayName,
+    [string]$NextPattern
   )
 
-  foreach ($entryMatch in $toolEntries) {
-    $entry = $entryMatch.Value
-    $nameMatch = [System.Text.RegularExpressions.Regex]::Match($entry, 'name: "([^"]+)"')
-    $name = if ($nameMatch.Success) { $nameMatch.Groups[1].Value } else { "unknown tool" }
+  $pattern = "const $ArrayName = \[([\s\S]*?)\];\s*\r?\n\r?\n$NextPattern"
+  $match = [System.Text.RegularExpressions.Regex]::Match($Content, $pattern)
 
-    foreach ($field in $requiredFields) {
+  if (-not $match.Success) {
+    Add-Failure -Name $ArrayName -Message "Unable to locate $ArrayName seed array."
+    return @()
+  }
+
+  return @([System.Text.RegularExpressions.Regex]::Matches($match.Groups[1].Value, "\{[\s\S]*?\n  \},"))
+}
+
+function Get-SeedEntryName {
+  param([string]$Entry)
+
+  $titleMatch = [System.Text.RegularExpressions.Regex]::Match($Entry, 'title: "([^"]+)"')
+  if ($titleMatch.Success) {
+    return $titleMatch.Groups[1].Value
+  }
+
+  $nameMatch = [System.Text.RegularExpressions.Regex]::Match($Entry, 'name: "([^"]+)"')
+  if ($nameMatch.Success) {
+    return $nameMatch.Groups[1].Value
+  }
+
+  return "unknown seed record"
+}
+
+function Test-RequiredFields {
+  param(
+    [string]$Type,
+    [object[]]$Entries,
+    [string[]]$RequiredFields
+  )
+
+  foreach ($entryMatch in $Entries) {
+    $entry = $entryMatch.Value
+    $name = Get-SeedEntryName $entry
+
+    foreach ($field in $RequiredFields) {
       if (-not $entry.Contains("${field}:")) {
-        Add-Failure -Name $name -Message "Missing required seed field: $field."
+        Add-Failure -Name "${Type}: $name" -Message "Missing required seed field: $field."
       }
     }
   }
 
-  Write-Host "[verify-seed-content] Checked $($toolEntries.Count) tool seed record(s)"
+  Write-Host "[verify-seed-content] Checked $(@($Entries).Count) $Type seed record(s)"
 }
+
+Write-Host "[verify-seed-content] Checking tool seed review fields"
+
+$content = [System.IO.File]::ReadAllText($seedPath, $utf8)
+$toolEntries = Get-SeedArrayEntries -Content $content -ArrayName "tools" -NextPattern "const bestLists"
+Test-RequiredFields -Type "tool" -Entries $toolEntries -RequiredFields @(
+  "longDescription",
+  "affiliateDisclosure",
+  "sourceUrls",
+  "seoTitle",
+  "seoDescription"
+)
+
+Write-Host "[verify-seed-content] Checking decision page seed fields"
+
+$bestListEntries = Get-SeedArrayEntries -Content $content -ArrayName "bestLists" -NextPattern "const comparisons"
+Test-RequiredFields -Type "best list" -Entries $bestListEntries -RequiredFields @(
+  "intro",
+  "selectionCriteria",
+  "verdict",
+  "seoTitle",
+  "seoDescription"
+)
+
+$comparisonEntries = Get-SeedArrayEntries -Content $content -ArrayName "comparisons" -NextPattern "const alternatives"
+Test-RequiredFields -Type "comparison" -Entries $comparisonEntries -RequiredFields @(
+  "summary",
+  "recommendation",
+  "featureNotes",
+  "pricingNotes",
+  "verdict",
+  "seoTitle",
+  "seoDescription"
+)
+
+$alternativeEntries = Get-SeedArrayEntries -Content $content -ArrayName "alternatives" -NextPattern "async function findFirst"
+Test-RequiredFields -Type "alternative" -Entries $alternativeEntries -RequiredFields @(
+  "intro",
+  "whyLookForAlternatives",
+  "selectionCriteria",
+  "verdict",
+  "seoTitle",
+  "seoDescription"
+)
 
 if ($failures -gt 0) {
   Write-Host "[verify-seed-content] Failed checks: $failures"
