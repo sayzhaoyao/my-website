@@ -63,3 +63,18 @@ Suggested handling:
 6. Use `ignored` only when the change is known noise.
 
 The Review Queue is intentionally not public. It is for admin users and worker API tokens only.
+
+## Review Queue CLI
+
+List open review items from the repository root:
+
+```powershell
+docker compose --profile tools run --rm worker npm run review:list
+```
+
+Useful filters:
+
+```powershell
+docker compose --profile tools run --rm worker npm run review:list -- --priority high
+docker compose --profile tools run --rm worker npm run review:list -- --status in_review
+```

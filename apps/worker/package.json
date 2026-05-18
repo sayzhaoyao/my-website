@@ -8,6 +8,7 @@
     "validate:url-sources": "node scripts/validate-url-sources.js",
     "collect:url-metadata": "node scripts/collect-url-metadata.js",
     "compare:collections": "node scripts/compare-collections.js",
+    "review:list": "node scripts/list-review-queue.js",
     "sync:review-queue": "node scripts/sync-review-queue.js",
     "import:tools": "node scripts/import-tools.js"
   },
