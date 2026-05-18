@@ -81,6 +81,12 @@ powershell -ExecutionPolicy Bypass -File scripts/verify-local.ps1
 
 The verification script waits for the frontend and CMS to become ready, which helps after a fresh `docker compose up --build -d` when the Next.js container is still finishing its production build.
 
+To check only the worker sample inputs and import dry-run:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/verify-worker.ps1
+```
+
 ## Content Review Pipeline
 
 Run the local collection, comparison, and review-queue dry-run:
