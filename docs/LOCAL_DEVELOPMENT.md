@@ -109,6 +109,14 @@ apps/worker/data/generated/
 
 ## Reset Local Database
 
+Before resetting or making large CMS changes, create a local PostgreSQL backup:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/backup-postgres.ps1
+```
+
+Backups are written to `backups/`, which is intentionally ignored by Git.
+
 This deletes local PostgreSQL data and uploaded media volumes:
 
 ```powershell
