@@ -38,6 +38,7 @@ function parseArgs(argv) {
     sourceName: "Local JSON Import",
     sourceUrl: "",
     sourceType: "manual_submission",
+    metadataOnly: false,
   };
 
   for (let index = 0; index < argv.length; index += 1) {
@@ -60,6 +61,8 @@ function parseArgs(argv) {
     } else if (arg === "--source-type") {
       options.sourceType = argv[index + 1];
       index += 1;
+    } else if (arg === "--metadata-only") {
+      options.metadataOnly = true;
     }
   }
 
@@ -87,7 +90,7 @@ function assertArray(value, field, errors) {
   return value.filter(Boolean).map(String);
 }
 
-function normalizeTool(input) {
+function normalizeTool(input, options = {}) {
   const errors = [];
   const name = String(input.name || "").trim();
   const slug = slugify(input.slug || name);
@@ -106,9 +109,11 @@ function normalizeTool(input) {
     errors.push("shortDescription is required.");
   }
 
-  for (const field of requiredReviewFields) {
-    if (!String(input[field] || "").trim()) {
-      errors.push(`${field} is required for review-ready imports.`);
+  if (!options.metadataOnly) {
+    for (const field of requiredReviewFields) {
+      if (!String(input[field] || "").trim()) {
+        errors.push(`${field} is required for review-ready imports.`);
+      }
     }
   }
 
@@ -131,9 +136,11 @@ function normalizeTool(input) {
     }
   }
 
-  for (const field of requiredArrayFields) {
-    if (!Array.isArray(input[field]) || input[field].filter(Boolean).length === 0) {
-      errors.push(`${field} must contain at least one value for review-ready imports.`);
+  if (!options.metadataOnly) {
+    for (const field of requiredArrayFields) {
+      if (!Array.isArray(input[field]) || input[field].filter(Boolean).length === 0) {
+        errors.push(`${field} must contain at least one value for review-ready imports.`);
+      }
     }
   }
 
@@ -353,7 +360,10 @@ async function main() {
   const baseUrl = process.env.STRAPI_URL || "http://localhost:1337";
   const token = process.env.STRAPI_API_TOKEN;
   const rawRecords = await readJson(options.file);
-  const normalized = rawRecords.map(normalizeTool);
+  if (options.metadataOnly && !options.dryRun) {
+    throw new Error("--metadata-only is only allowed with dry-run. Add review-ready fields before writing to Strapi.");
+  }
+  const normalized = rawRecords.map((record) => normalizeTool(record, options));
   const invalid = normalized
     .map((record, index) => ({ index, record }))
     .filter((item) => item.record.errors.length > 0);
@@ -373,7 +383,9 @@ async function main() {
 
   if (options.dryRun) {
     for (const record of normalized) {
-      const reviewLabel = record.collection?.reviewRequired ? "review required" : "manual review recommended";
+      const reviewLabel = options.metadataOnly
+        ? "metadata-only validation"
+        : record.collection?.reviewRequired ? "review required" : "manual review recommended";
       console.log(`[dry-run] ${record.data.slug}: ready for import as ${record.data.editorialStatus} (${reviewLabel}).`);
       if (record.collection?.sourceUrl) {
         console.log(`  source: ${record.collection.sourceUrl}`);

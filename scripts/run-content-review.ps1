@@ -70,6 +70,9 @@ if (-not $UseExistingReport) {
   Write-Host "[content-review] Collecting current metadata"
   Invoke-CheckedCommand { docker compose --profile tools run --rm worker npm run collect:url-metadata -- --input $InputFile --output $CurrentFile }
 
+  Write-Host "[content-review] Validating current metadata output"
+  Invoke-CheckedCommand { docker compose --profile tools run --rm worker npm run import:tools -- --file $CurrentFile --dry-run --metadata-only }
+
   Write-Host "[content-review] Comparing current metadata against previous run"
   Invoke-CheckedCommand { docker compose --profile tools run --rm worker npm run compare:collections -- --previous $PreviousFile --current $CurrentFile --output $ReportFile }
 } else {

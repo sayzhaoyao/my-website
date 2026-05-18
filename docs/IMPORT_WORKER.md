@@ -42,8 +42,10 @@ docker compose --profile tools run --rm worker npm run collect:url-metadata -- -
 Then validate the generated import file:
 
 ```powershell
-docker compose --profile tools run --rm worker npm run import:tools -- --file data/generated/url-metadata.tools.json --dry-run
+docker compose --profile tools run --rm worker npm run import:tools -- --file data/generated/url-metadata.tools.json --dry-run --metadata-only
 ```
+
+Use `--metadata-only` only for collector output. It checks that the collected records can be parsed, but it does not treat them as ready to write into Strapi. Before writing imported tools, add review-ready fields such as long description, pros, cons, source URLs, affiliate disclosure, SEO metadata, and category slugs.
 
 ## Compare Collection Runs
 
@@ -99,8 +101,9 @@ This script:
 1. builds the worker image,
 2. preserves the previous collector output,
 3. collects current URL metadata,
-4. compares previous and current outputs,
-5. dry-runs review queue sync.
+4. validates the current collector output in metadata-only dry-run mode,
+5. compares previous and current outputs,
+6. dry-runs review queue sync.
 
 To write actionable items into the CMS Review Queue:
 
@@ -119,6 +122,8 @@ If it looks good, write it to Strapi:
 ```powershell
 docker compose --profile tools run --rm worker npm run import:tools -- --file data/generated/url-metadata.tools.json --write --source-name "URL metadata collector" --source-url "file://data/url-sources.sample.json" --source-type official_site
 ```
+
+Do not use `--metadata-only` with `--write`; the worker blocks that combination intentionally.
 
 Generated collector output is ignored by Git:
 
