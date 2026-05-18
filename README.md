@@ -82,7 +82,7 @@ Worker:   Node.js scripts through the Docker Compose tools profile
 
 ## Checks
 
-GitHub Actions runs a Docker Compose build and smoke test on pushes and pull requests.
+GitHub Actions runs Docker Compose build checks, CMS schema validation, seed-content validation, worker sample validation, and public smoke tests on pushes and pull requests.
 
 ## Content Review Pipeline
 
@@ -90,6 +90,12 @@ Run a local website/CMS health check after Docker is running:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/verify-local.ps1
+```
+
+Run only the worker sample checks:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/verify-worker.ps1
 ```
 
 Run a local content collection and review check:
@@ -130,4 +136,4 @@ Read these files in order:
 
 The current recommendation is to build a niche directory and comparison website for AI and software tools used by cross-border e-commerce sellers, using Next.js, Strapi, PostgreSQL, and Docker Compose.
 
-The next implementation milestone is to polish the first content cluster, configure production hosting, add analytics, and prepare affiliate links only after partner approval and manual editorial review.
+The local MVP now includes rich seed content for 20 tool reviews, 7 buying guides, 7 comparison pages, and 6 alternatives pages. The next implementation milestone is production preparation: choose a domain and hosting target, configure analytics, review legal/contact details, and add affiliate links only after partner approval and manual editorial review.
