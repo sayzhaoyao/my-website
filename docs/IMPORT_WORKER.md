@@ -117,6 +117,8 @@ If you already reviewed the generated report and only want to sync that exact re
 powershell -ExecutionPolicy Bypass -File scripts/run-content-review.ps1 -UseExistingReport -WriteQueue
 ```
 
+Use `-UseExistingReport` only when you intentionally want the current report file. If source records, comparison rules, or priority logic changed, run the script without `-UseExistingReport` to generate a fresh report first.
+
 If it looks good, write it to Strapi:
 
 ```powershell

@@ -77,6 +77,7 @@ if (-not $UseExistingReport) {
   Invoke-CheckedCommand { docker compose --profile tools run --rm worker npm run compare:collections -- --previous $PreviousFile --current $CurrentFile --output $ReportFile }
 } else {
   Write-Host "[content-review] Using existing report: $ReportFile"
+  Write-Host "[content-review] Existing reports may contain stale review priorities. Run without -UseExistingReport after source or comparison rules change."
 }
 
 if ($WriteQueue) {
