@@ -115,6 +115,9 @@ docker compose ps
 Write-Host "[verify-local] Checking CMS schemas"
 & (Join-Path $repoRoot "scripts/verify-cms-schemas.ps1")
 
+Write-Host "[verify-local] Checking seed content"
+& (Join-Path $repoRoot "scripts/verify-seed-content.ps1")
+
 Write-Host "[verify-local] Checking worker URL source samples"
 docker compose --profile tools build worker
 docker compose --profile tools run --rm worker npm run validate:url-sources -- --file data/url-sources.sample.json
