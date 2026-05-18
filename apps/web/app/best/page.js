@@ -50,8 +50,13 @@ export default async function BestIndexPage() {
       <section className="section">
         <div className="container two-column">
           <div className="detail-panel">
-            <article className="card">
-              <h2>All buying guides</h2>
+            <section className="hub-panel" aria-labelledby="all-buying-guides">
+              <div className="section-header compact">
+                <div>
+                  <h2 id="all-buying-guides">All buying guides</h2>
+                  <p>Focused shortlists for common e-commerce software decisions.</p>
+                </div>
+              </div>
               <div className="grid">
                 {lists.map((list) => (
                   <article className="card" key={list.documentId}>
@@ -64,9 +69,9 @@ export default async function BestIndexPage() {
                   </article>
                 ))}
               </div>
-            </article>
+            </section>
 
-            <article className="card">
+            <article className="info-panel">
               <h2>How to use these lists</h2>
               <div className="decision-grid">
                 <div className="decision-box">

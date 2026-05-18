@@ -56,8 +56,13 @@ export default async function CompareIndexPage() {
       <section className="section">
         <div className="container two-column">
           <div className="detail-panel">
-            <article className="card">
-              <h2>All comparisons</h2>
+            <section className="hub-panel" aria-labelledby="all-comparisons">
+              <div className="section-header compact">
+                <div>
+                  <h2 id="all-comparisons">All comparisons</h2>
+                  <p>Side-by-side pages for teams choosing between two known tools.</p>
+                </div>
+              </div>
               <div className="grid">
                 {comparisons.map((comparison) => (
                   <article className="decision-box" key={comparison.documentId}>
@@ -69,8 +74,8 @@ export default async function CompareIndexPage() {
                   </article>
                 ))}
               </div>
-            </article>
-            <article className="card">
+            </section>
+            <article className="info-panel">
               <h2>When to use a comparison page</h2>
               <ol className="ordered-list">
                 <li>You already have two tools in mind.</li>

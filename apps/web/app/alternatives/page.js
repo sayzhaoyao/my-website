@@ -56,8 +56,13 @@ export default async function AlternativesIndexPage() {
       <section className="section">
         <div className="container two-column">
           <div className="detail-panel">
-            <article className="card">
-              <h2>All alternatives guides</h2>
+            <section className="hub-panel" aria-labelledby="all-alternatives">
+              <div className="section-header compact">
+                <div>
+                  <h2 id="all-alternatives">All alternatives guides</h2>
+                  <p>Replacement guides for tools that may no longer fit the workflow.</p>
+                </div>
+              </div>
               <div className="grid">
                 {alternatives.map((alternative) => (
                   <article className="decision-box" key={alternative.documentId}>
@@ -69,8 +74,8 @@ export default async function AlternativesIndexPage() {
                   </article>
                 ))}
               </div>
-            </article>
-            <article className="card">
+            </section>
+            <article className="info-panel">
               <h2>How to evaluate alternatives</h2>
               <ol className="ordered-list">
                 <li>Start with the reason the current tool is not working.</li>

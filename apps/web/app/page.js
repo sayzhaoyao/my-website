@@ -102,14 +102,31 @@ export default async function HomePage() {
               <a className="button" href="/best">View best tools</a>
             </div>
           </div>
-          <aside className="home-verdict-card" aria-label="Recommended starting path">
-            <span className="verdict-label">Start here</span>
+          <aside className="home-decision-panel" aria-label="Recommended starting path">
+            <div className="panel-head">
+              <span className="verdict-label">Start here</span>
+              <strong>Decision system</strong>
+            </div>
             <h2>Pick a workflow, then compare the shortlist.</h2>
             <p>Most software decisions fail when teams start from brand names. Start from the job: retention, product research, SEO, support, analytics, or automation.</p>
-            <div className="meta">
-              <span className="pill">{categories.length} categories</span>
-              <span className="pill">{tools.length} tools</span>
-              <span className="pill">{bestLists.length + comparisons.length + alternatives.length} decision pages</span>
+            <div className="decision-metrics" aria-label="Tracked content totals">
+              <div>
+                <strong>{categories.length}</strong>
+                <span>Categories</span>
+              </div>
+              <div>
+                <strong>{tools.length}</strong>
+                <span>Tools</span>
+              </div>
+              <div>
+                <strong>{bestLists.length + comparisons.length + alternatives.length}</strong>
+                <span>Decision pages</span>
+              </div>
+            </div>
+            <div className="decision-route">
+              <div><span>1</span><strong>Workflow</strong><em>Start from the job</em></div>
+              <div><span>2</span><strong>Shortlist</strong><em>Compare scored picks</em></div>
+              <div><span>3</span><strong>Verify</strong><em>Check official sources</em></div>
             </div>
           </aside>
         </div>
